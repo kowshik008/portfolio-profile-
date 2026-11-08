@@ -15,6 +15,7 @@ $mimeTypes = @{
     ".jpeg" = "image/jpeg"
     ".svg"  = "image/svg+xml"
     ".ico"  = "image/x-icon"
+    ".pdf"  = "application/pdf"
 }
 
 $ip = [System.Net.IPAddress]::Loopback

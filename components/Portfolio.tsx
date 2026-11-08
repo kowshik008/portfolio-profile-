@@ -38,6 +38,7 @@ export default function Portfolio() {
         <a data-cursor="EXPERTISE" href="#expertise">EXPERTISE</a>
         <a data-cursor="WORK" href="#work">WORK</a>
         <a data-cursor="CONTACT" href="#contact">CONTACT</a>
+        <a data-cursor="RESUME" href="/kowshik-sravanam-resume.pdf" target="_blank">RESUME ↗</a>
       </nav>
       <div className="availability"><i /> OPEN TO OPPORTUNITIES</div>
     </header>
@@ -55,6 +56,7 @@ export default function Portfolio() {
           </motion.p>
           <motion.div className="hero-actions" initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: .28 }}>
             <a className="button button-primary" href="#work" data-cursor="VIEW WORK">EXPLORE MY WORK <ArrowUpRight size={15} /></a>
+            <a className="text-link" href="/kowshik-sravanam-resume.pdf" download="Kowshik_Sravanam_Resume.pdf" data-cursor="RESUME">DOWNLOAD RESUME</a>
             <a className="text-link" href="#about" data-cursor="ABOUT ME">GET TO KNOW ME <ArrowDownRight size={15} /></a>
           </motion.div>
         </div>
