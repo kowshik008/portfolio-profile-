@@ -14,7 +14,7 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } }
 };
 
-const skills = ["Python", "LLMs", "Generative AI", "Machine Learning", "Prompt Engineering", "AI Automation", "React", "Next.js", "API Integration"];
+const skills = ["Python", "Generative AI", "LLMs", "AI Applications", "Web Development", "HTML & CSS", "Machine Learning", "Problem Solving", "React", "Next.js"];
 
 export default function Portfolio() {
   const reduced = useReducedMotion();
@@ -46,12 +46,12 @@ export default function Portfolio() {
       <section className="hero">
         <div className="hero-grid" />
         <div className="hero-copy">
-          <motion.p className="eyebrow" initial="hidden" animate="visible" variants={fadeUp}>AI ENGINEER <span>／</span> CREATIVE TECHNOLOGIST</motion.p>
+          <motion.p className="eyebrow" initial="hidden" animate="visible" variants={fadeUp}>B.TECH @ NIAT <span>／</span> ASPIRING AI ENGINEER</motion.p>
           <motion.h1 initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: .08 }}>
             BUILDING<br /><span className="stroke">INTELLIGENT</span><br /><span className="lime">EXPERIENCES.</span>
           </motion.h1>
           <motion.p className="hero-description" initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: .18 }}>
-            I’m Kowshik Sravanam — exploring the space where artificial intelligence, thoughtful engineering and human creativity meet.
+            I’m Kowshik Sravanam — a first-year Computer Science student at NIAT exploring Artificial Intelligence, Generative AI, and human-centred technology.
           </motion.p>
           <motion.div className="hero-actions" initial="hidden" animate="visible" variants={fadeUp} transition={{ delay: .28 }}>
             <a className="button button-primary" href="#work" data-cursor="VIEW WORK">EXPLORE MY WORK <ArrowUpRight size={15} /></a>
@@ -73,13 +73,13 @@ export default function Portfolio() {
         <div className="about-layout">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <h2 className="section-heading">CURIOUS BY<br />NATURE. <em>BUILT</em><br />TO EXPLORE.</h2>
-            <p className="about-statement">I’m an AI Engineer interested in turning complex ideas into <strong>useful, human-centred technology.</strong> I enjoy learning, experimenting and building things that make a meaningful difference.</p>
+            <p className="about-statement">I'm a first-year B.Tech student at NIAT, passionate about <strong>Artificial Intelligence, Python programming, Web Development, and Generative AI.</strong> I’m building my technical foundation through hands-on learning, personal projects, hackathons, and ideathons to create projects that go beyond classroom learning.</p>
           </motion.div>
           <motion.div className="facts-grid" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <div><small>FOCUS</small><span>Artificial Intelligence</span></div>
-            <div><small>APPROACH</small><span>Build · Test · Improve</span></div>
-            <div><small>BASED IN</small><span>India</span></div>
-            <div><small>CURRENT MODE</small><span>Always learning</span></div>
+            <div><small>FOCUS</small><span>AI & Generative AI</span></div>
+            <div><small>EDUCATION</small><span>NIAT · B.Tech CSE (2026-30)</span></div>
+            <div><small>LOCATION</small><span>Rajahmundry, AP, India</span></div>
+            <div><small>OPPORTUNITY</small><span>Open to Internships</span></div>
           </motion.div>
         </div>
       </section>
@@ -112,15 +112,15 @@ export default function Portfolio() {
         <div className="section-index">04 / HAVE A GOOD CHALLENGE?</div>
         <h2>LET’S MAKE<br />IT <span>INTELLIGENT.</span></h2>
         <p>Have an interesting problem or an idea worth exploring? Let’s talk.</p>
-        <a className="contact-link" href="mailto:hello@example.com">REPLACE WITH YOUR EMAIL <ArrowUpRight size={17} /></a>
+        <a className="contact-link" href="mailto:kowshiksravanam6565@gmail.com">kowshiksravanam6565@gmail.com <ArrowUpRight size={17} /></a>
       </section>
     </main>
     <footer className="footer">
       <span>© {new Date().getFullYear()} KOWSHIK SRAVANAM</span>
       <div className="socials">
-        <a href="https://github.com/" target="_blank" rel="noreferrer" aria-label="GitHub profile (replace with your username)"><Github size={17} /> GITHUB</a>
-        <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn profile (replace with your profile URL)"><Linkedin size={17} /> LINKEDIN</a>
-        <a href="mailto:hello@example.com" aria-label="Email Kowshik"><Mail size={17} /> EMAIL</a>
+        <a href="https://github.com/" target="_blank" rel="noreferrer" aria-label="GitHub profile"><Github size={17} /> GITHUB</a>
+        <a href="https://www.linkedin.com/in/kowshik-sravanam-622b7942b" target="_blank" rel="noreferrer" aria-label="LinkedIn profile"><Linkedin size={17} /> LINKEDIN</a>
+        <a href="mailto:kowshiksravanam6565@gmail.com" aria-label="Email Kowshik"><Mail size={17} /> EMAIL</a>
       </div>
       <a href="#top">BACK TO TOP ↑</a>
     </footer>
