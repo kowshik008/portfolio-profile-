@@ -133,8 +133,8 @@
     .text-link:hover { color: var(--lime); }
 
     .portrait-wrap {
-      width: min(100%, 450px);
-      aspect-ratio: 0.86;
+      width: min(100%, 390px);
+      aspect-ratio: 1;
       justify-self: end;
       position: relative;
       perspective: 1000px;
@@ -145,9 +145,9 @@
     }
     .portrait-glow {
       position: absolute;
-      inset: -12%;
+      inset: -14%;
       border-radius: 50%;
-      background: radial-gradient(circle at 50% 40%, rgba(198, 255, 61, 0.22), rgba(255, 112, 72, 0.1) 45%, transparent 75%);
+      background: radial-gradient(circle at 50% 50%, rgba(198, 255, 61, 0.28), rgba(255, 112, 72, 0.12) 45%, transparent 72%);
       filter: blur(55px);
       pointer-events: none;
       z-index: 0;
@@ -158,39 +158,37 @@
       100% { opacity: 1; transform: scale(1.05); }
     }
     .portrait-image {
-      position: absolute;
-      inset: 0;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1;
-      /* Seamless organic fade directly into midnight background */
-      -webkit-mask-image: radial-gradient(ellipse 90% 82% at 50% 42%, black 48%, rgba(0,0,0,0.85) 66%, transparent 95%),
-                          linear-gradient(to bottom, black 65%, transparent 98%);
-      mask-image: radial-gradient(ellipse 90% 82% at 50% 42%, black 48%, rgba(0,0,0,0.85) 66%, transparent 95%),
-                  linear-gradient(to bottom, black 65%, transparent 98%);
-      -webkit-mask-composite: source-in;
-      mask-composite: intersect;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.85));
-      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      border: 2px solid rgba(198, 255, 61, 0.45);
+      box-shadow: 0 0 50px rgba(198, 255, 61, 0.25), 0 25px 60px rgba(0, 0, 0, 0.85);
+      background: #101211;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s, border-color 0.4s;
     }
     .portrait-wrap:hover .portrait-image {
-      transform: translateY(-4px) scale(1.015);
+      transform: scale(1.03);
+      border-color: rgba(198, 255, 61, 0.8);
+      box-shadow: 0 0 70px rgba(198, 255, 61, 0.35), 0 30px 70px rgba(0, 0, 0, 0.9);
     }
     .portrait-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 15%;
-      filter: contrast(1.07) brightness(0.97) saturate(1.04);
+      object-position: center center;
       display: block;
       transition: filter 0.4s ease;
     }
     .portrait-orbit {
       position: absolute;
       inset: -6%;
-      border: 1px solid rgba(198, 255, 61, 0.22);
+      border: 1px solid rgba(198, 255, 61, 0.25);
       border-radius: 50%;
       pointer-events: none;
       z-index: 2;
@@ -211,17 +209,18 @@
     }
     .portrait-label {
       position: absolute;
-      bottom: 8%;
+      bottom: 4%;
       left: -12px;
-      background: rgba(16, 18, 17, 0.82);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(16, 18, 17, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border: 1px solid rgba(198, 255, 61, 0.45);
       color: var(--lime);
       padding: 10px 14px;
       font: 9px var(--mono);
       letter-spacing: 0.12em;
       z-index: 3;
+      border-radius: 6px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.6);
     }
     .portrait-label b { font-weight: 400; opacity: 0.6; color: var(--ivory); }
@@ -250,41 +249,42 @@
     .about-subtext { max-width: 600px; color: #9da49a; font-size: 14px; line-height: 1.8; margin: 0 0 32px; }
     /* ── Recognizable Portrait Card in About ── */
     .about-card-glass {
-      background: rgba(21, 25, 22, 0.55);
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      border: 1px solid rgba(198, 255, 61, 0.16);
-      border-radius: 16px;
-      padding: 16px;
+      background: rgba(21, 26, 23, 0.55);
+      backdrop-filter: blur(24px) saturate(1.5);
+      -webkit-backdrop-filter: blur(24px) saturate(1.5);
+      border: 1px solid rgba(198, 255, 61, 0.2);
+      border-radius: 20px;
+      padding: 24px;
       position: relative;
-      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45), 0 0 30px rgba(198, 255, 61, 0.05);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 35px rgba(198, 255, 61, 0.08);
       transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s, box-shadow 0.4s;
     }
     .about-card-glass:hover {
       transform: translateY(-6px);
-      border-color: rgba(198, 255, 61, 0.4);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(198, 255, 61, 0.12);
+      border-color: rgba(198, 255, 61, 0.45);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 50px rgba(198, 255, 61, 0.18);
     }
     .about-portrait-frame {
       position: relative;
       width: 100%;
-      aspect-ratio: 0.96;
-      border-radius: 10px;
+      aspect-ratio: 1;
+      border-radius: 50%;
       overflow: hidden;
-      background: #111412;
-      border: 1px solid rgba(242, 240, 232, 0.08);
+      background: #101211;
+      border: 2px solid rgba(198, 255, 61, 0.35);
+      box-shadow: 0 0 30px rgba(198, 255, 61, 0.15), inset 0 0 25px rgba(0, 0, 0, 0.8);
+      margin: 0 auto;
     }
     .about-portrait-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 15%;
-      filter: contrast(1.05) saturate(1.02);
+      object-position: center center;
       display: block;
       transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .about-card-glass:hover .about-portrait-frame img {
-      transform: scale(1.03);
+      transform: scale(1.04);
     }
     .about-card-footer {
       display: flex;
@@ -423,11 +423,76 @@
     .project-card p { color: #9da49a; font-size: 12px; line-height: 1.75; max-width: 390px; }
     .project-arrow { position: absolute; right: 26px; bottom: 25px; color: var(--lime); }
 
-    .contact { background: var(--lime); color: var(--ink); padding: 105px 6vw; }
-    .contact .section-index { color: #40531c; }
-    .contact h2 { font-size: clamp(48px, 9vw, 118px); line-height: 0.88; letter-spacing: -0.09em; margin: 0 0 25px; }
-    .contact h2 span { color: var(--ivory); }
-    .contact p { font-size: 14px; margin: 0 0 28px; }
+    /* ── Glassmorphic Contact Section ── */
+    .contact {
+      padding: 110px 6vw;
+      border-top: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-glass-card {
+      background: rgba(21, 26, 23, 0.55);
+      backdrop-filter: blur(28px) saturate(1.5);
+      -webkit-backdrop-filter: blur(28px) saturate(1.5);
+      border: 1px solid rgba(198, 255, 61, 0.2);
+      border-radius: 24px;
+      padding: clamp(40px, 6vw, 80px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+    .contact-glass-card::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(198, 255, 61, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+    .contact-glass-card h2 {
+      font-size: clamp(44px, 8vw, 108px);
+      line-height: 0.9;
+      letter-spacing: -0.09em;
+      margin: 0 0 24px;
+      font-weight: 800;
+    }
+    .contact-glass-card h2 span { color: var(--lime); }
+    .contact-glass-card p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #b7bcb3;
+      max-width: 520px;
+      margin: 0 0 38px;
+    }
+    .contact-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .copy-btn {
+      background: rgba(198, 255, 61, 0.08);
+      border: 1px solid rgba(198, 255, 61, 0.25);
+      color: var(--lime);
+      padding: 14px 22px;
+      font: 10px var(--mono);
+      letter-spacing: 0.1em;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
+    }
+    .copy-btn:hover {
+      background: rgba(198, 255, 61, 0.2);
+      border-color: var(--lime);
+      transform: translateY(-3px);
+    }
     /* ── Scroll Reveal Animations ── */
     .reveal {
       opacity: 0;
@@ -632,7 +697,7 @@
         <div class="portrait-orbit orbit-one"></div>
         <div class="portrait-orbit orbit-two"></div>
         <div class="portrait-image">
-          <img src="./public/images/kowshik-sravanam.jpg" alt="Kowshik Sravanam" />
+          <img src="./public/images/kowshik-hero.jpg" alt="Kowshik Sravanam — AI Engineer" />
         </div>
         <span class="portrait-label">KOWSHIK SRAVANAM <b>／ 01</b></span>
         <span class="portrait-side">THINK · BUILD · ITERATE</span>
@@ -676,7 +741,7 @@
         <div class="about-portrait-col reveal-right">
           <div class="about-card-glass">
             <div class="about-portrait-frame">
-              <img src="./public/images/kowshik-sravanam.jpg" alt="Kowshik Sravanam — Creative & AI Explorer" />
+              <img src="./public/images/kowshik-smiling.jpg" alt="Kowshik Sravanam — Creative & AI Explorer" />
             </div>
             <div class="about-card-footer">
               <div>
@@ -740,12 +805,22 @@
     </section>
 
     <section class="contact" id="contact">
-      <div class="section-index">04 / HAVE A GOOD CHALLENGE?</div>
-      <h2>LET’S MAKE<br />IT <span>INTELLIGENT.</span></h2>
-      <p>Have an interesting problem or an idea worth exploring? Let’s talk.</p>
-      <a class="contact-link" href="mailto:kowshiksravanam6565@gmail.com">
-        kowshiksravanam6565@gmail.com <i data-lucide="arrow-up-right" style="width: 17px; height: 17px;"></i>
-      </a>
+      <div class="contact-glass-card reveal">
+        <div class="section-index">04 / HAVE A GOOD CHALLENGE?</div>
+        <h2>LET’S MAKE<br />IT <span>INTELLIGENT.</span></h2>
+        <p>Have an interesting problem or an idea worth exploring? Whether it's an AI application, creative web experience, or an internship opportunity, let’s connect.</p>
+        <div class="contact-actions">
+          <a class="button button-primary" href="mailto:kowshiksravanam6565@gmail.com" data-cursor="EMAIL">
+            SEND EMAIL <i data-lucide="arrow-up-right" style="width: 15px; height: 15px;"></i>
+          </a>
+          <button class="copy-btn" id="copyEmailBtn" data-cursor="COPY" onclick="copyEmail()">
+            <i data-lucide="copy" style="width: 14px; height: 14px;"></i> <span id="copyBtnText">COPY EMAIL</span>
+          </button>
+          <a class="text-link" href="https://www.linkedin.com/in/kowshik-sravanam-622b7942b" target="_blank" rel="noreferrer" data-cursor="LINKEDIN">
+            LINKEDIN PROFILE <i data-lucide="arrow-up-right" style="width: 14px; height: 14px;"></i>
+          </a>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -866,6 +941,22 @@
         card.style.transform = '';
       });
     });
+
+    // One-click email copy helper
+    function copyEmail() {
+      const email = "kowshiksravanam6565@gmail.com";
+      const btn = document.getElementById("copyBtnText");
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(email).then(() => {
+          if (btn) {
+            btn.textContent = "COPIED! ✓";
+            setTimeout(() => { btn.textContent = "COPY EMAIL"; }, 2200);
+          }
+        });
+      } else {
+        window.location.href = "mailto:" + email;
+      }
+    }
 
     // Custom roaming cursor
     if (!window.matchMedia("(pointer: coarse)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

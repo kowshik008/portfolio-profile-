@@ -84,7 +84,7 @@ export default function Portfolio() {
         <motion.div className="portrait-wrap" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: .2 }}>
           <div className="portrait-glow" />
           <div className="portrait-orbit orbit-one" /><div className="portrait-orbit orbit-two" />
-          <div className="portrait-image"><Image src="/images/kowshik-sravanam.jpg" alt="Kowshik Sravanam" fill priority sizes="(max-width: 800px) 78vw, 38vw" /></div>
+          <div className="portrait-image"><Image src="/images/kowshik-hero.jpg" alt="Kowshik Sravanam — AI Engineer" fill priority sizes="(max-width: 800px) 78vw, 38vw" style={{ objectFit: "cover", objectPosition: "center center" }} /></div>
           <span className="portrait-label">KOWSHIK SRAVANAM <b>／ 01</b></span>
           <span className="portrait-side">THINK · BUILD · ITERATE</span>
         </motion.div>
@@ -119,8 +119,8 @@ export default function Portfolio() {
           {/* Right Column: Recognizable Glassmorphic Portrait */}
           <motion.div className="about-portrait-col" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <div className="about-card-glass">
-              <div className="about-portrait-frame" style={{ position: "relative", width: "100%", aspectRatio: "0.96", borderRadius: "10px", overflow: "hidden" }}>
-                <Image src="/images/kowshik-sravanam.jpg" alt="Kowshik Sravanam" fill sizes="(max-width: 800px) 90vw, 35vw" style={{ objectFit: "cover", objectPosition: "center 15%" }} />
+              <div className="about-portrait-frame" style={{ position: "relative", width: "100%", aspectRatio: "1", borderRadius: "50%", overflow: "hidden" }}>
+                <Image src="/images/kowshik-smiling.jpg" alt="Kowshik Sravanam — Creative & AI Explorer" fill sizes="(max-width: 800px) 90vw, 35vw" style={{ objectFit: "cover", objectPosition: "center center" }} />
               </div>
               <div className="about-card-footer">
                 <div>
