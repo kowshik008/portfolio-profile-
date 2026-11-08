@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kowshik Sravanam — Aspiring AI Engineer & Tech Enthusiast</title>
-  <meta name="description" content="Portfolio of Kowshik Sravanam — Aspiring AI Engineer, First-Year B.Tech Student at NIAT, passionate about Artificial Intelligence, Python, and practical software engineering." />
+  <meta name="description" content="Portfolio of Kowshik Sravanam — Aspiring AI Engineer, First-Year B.Tech Student at NIAT, passionate about Artificial Intelligence, Machine Learning, Python, and practical software engineering." />
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <!-- Google Fonts: Space Grotesk (Headings), Inter (Body), JetBrains Mono (Code/Labels) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -22,29 +22,34 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"Inter"', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            brand: {
-              50: '#F0F7FF',
-              100: '#E0EFFF',
-              200: '#BAE0FD',
-              300: '#7DC8FC',
-              400: '#38BDF8',
-              500: '#0EA5E9',
-              600: '#0284C7',
-              700: '#0369A1',
-              800: '#075985',
-              900: '#0C4A6E',
+            midnight: {
+              main: '#080D1A',
+              card: '#111C32',
+              surface: 'rgba(17, 28, 50, 0.65)',
+              border: 'rgba(255, 255, 255, 0.12)',
+              borderHover: 'rgba(56, 189, 248, 0.35)',
             },
-            dark: {
-              bg: '#080C14',
-              surface: '#0F172A',
-              card: '#131D31',
-              border: '#1E293B',
-              borderHover: '#334155',
+            aurora: {
+              blue: '#2563EB',
+              violet: '#8B5CF6',
+              sky: '#38BDF8',
+              indigo: '#6366F1',
+            },
+            content: {
+              main: '#F8FAFC',
+              secondary: '#A1A1AA',
+              muted: '#71717A',
             }
+          },
+          boxShadow: {
+            'glass': '0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+            'glass-hover': '0 25px 50px -12px rgba(37, 99, 235, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.2)',
+            'aurora-glow': '0 0 50px -10px rgba(37, 99, 235, 0.3), 0 0 80px -20px rgba(139, 92, 246, 0.25)',
           }
         }
       }
@@ -55,187 +60,415 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* Custom scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    .dark ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; }
-    .dark ::-webkit-scrollbar-thumb:hover { background: #334155; }
-    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 7px; }
+    ::-webkit-scrollbar-track { background: #080D1A; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(56, 189, 248, 0.4); }
 
-    /* Subtle grid background */
-    .bg-tech-grid {
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    }
-    .light .bg-tech-grid {
-      background-image: 
-        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    /* Noise Texture Overlay */
+    .bg-noise {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
     }
 
-    /* Ambient glow elements */
-    .hero-glow {
+    /* Aurora Gradient Background Animation */
+    @keyframes auroraSlow {
+      0% {
+        transform: translate(0px, 0px) scale(1) rotate(0deg);
+      }
+      33% {
+        transform: translate(60px, -40px) scale(1.15) rotate(6deg);
+      }
+      66% {
+        transform: translate(-40px, 50px) scale(0.95) rotate(-6deg);
+      }
+      100% {
+        transform: translate(0px, 0px) scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes auroraSlowReverse {
+      0% {
+        transform: translate(0px, 0px) scale(1) rotate(0deg);
+      }
+      33% {
+        transform: translate(-50px, 30px) scale(1.1) rotate(-8deg);
+      }
+      66% {
+        transform: translate(40px, -60px) scale(1.05) rotate(4deg);
+      }
+      100% {
+        transform: translate(0px, 0px) scale(1) rotate(0deg);
+      }
+    }
+
+    .aurora-orb-1 {
       position: absolute;
-      width: 600px;
-      height: 600px;
+      width: 650px;
+      height: 650px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(99, 102, 241, 0.04) 40%, transparent 70%);
-      filter: blur(80px);
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, rgba(139, 92, 246, 0.12) 45%, transparent 70%);
+      filter: blur(90px);
+      animation: auroraSlow 24s ease-in-out infinite;
       pointer-events: none;
+      z-index: 0;
     }
 
-    /* Glassmorphism helpers */
-    .glass-panel {
-      background: rgba(15, 23, 42, 0.72);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .aurora-orb-2 {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, rgba(56, 189, 248, 0.1) 50%, transparent 70%);
+      filter: blur(100px);
+      animation: auroraSlowReverse 28s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
     }
-    .light .glass-panel {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+
+    .aurora-orb-3 {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(37, 99, 235, 0.08) 55%, transparent 70%);
+      filter: blur(80px);
+      animation: auroraSlow 20s ease-in-out infinite reverse;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-surface {
+      background: rgba(17, 28, 50, 0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .glass-card {
+      position: relative;
+      background: rgba(17, 28, 50, 0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease-out;
+      overflow: hidden;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+      box-shadow: 0 25px 50px -15px rgba(37, 99, 235, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+    }
+
+    /* Spotlight effect layer following cursor */
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(450px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(56, 189, 248, 0.09), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .glass-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Spotlight Border Glow */
+    .glass-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 21px;
+      background: radial-gradient(350px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(139, 92, 246, 0.4), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 0;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      padding: 1px;
+    }
+
+    .glass-card:hover::after {
+      opacity: 1;
+    }
+
+    /* Animated Gradient Text */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .text-aurora-gradient {
+      background: linear-gradient(135deg, #38BDF8 0%, #818CF8 50%, #C084FC 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 8s ease infinite;
+    }
+
+    .text-aurora-subtle {
+      background: linear-gradient(135deg, #F8FAFC 20%, #CBD5E1 60%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Animated Navigation Underline */
+    .nav-link-aurora {
+      position: relative;
+      transition: color 0.25s ease;
+    }
+
+    .nav-link-aurora::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #2563EB, #8B5CF6, #38BDF8);
+      border-radius: 2px;
+      transform: translateX(-50%);
+      transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-link-aurora:hover::after,
+    .nav-link-aurora.active::after {
+      width: 80%;
+    }
+
+    /* Magnetic CTA Button */
+    .magnetic-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+      will-change: transform;
+    }
+
+    /* 3D Tilt Card Container */
+    .tilt-card {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    /* Scroll Reveal Helper Classes */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Gentle Floating Animation */
+    @keyframes floatGentle {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .float-badge {
+      animation: floatGentle 5s ease-in-out infinite;
+    }
+
+    .float-badge-delayed {
+      animation: floatGentle 6s ease-in-out infinite 2.5s;
+    }
+
+    /* Pulse Glow for Online / Availability Status */
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .status-pulse {
+      animation: pulseRing 2.4s infinite;
+    }
+
+    /* Respect Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      .aurora-orb-1, .aurora-orb-2, .aurora-orb-3,
+      .text-aurora-gradient, .float-badge, .float-badge-delayed,
+      .status-pulse {
+        animation: none !important;
+      }
+      .reveal {
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .tilt-card {
+        transform: none !important;
+      }
     }
   </style>
 </head>
 
-<body class="bg-dark-bg text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white transition-colors duration-300">
+<body class="bg-midnight-main text-content-main font-body antialiased selection:bg-aurora-blue selection:text-white transition-colors duration-300 relative overflow-x-hidden">
 
-  <!-- Ambient Hero Glows -->
-  <div class="hero-glow top-0 left-1/4 -translate-x-1/2"></div>
-  <div class="hero-glow top-40 right-0"></div>
+  <!-- ==================== BACKGROUND AURORA & PARTICLES ==================== -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <!-- Subtle Noise Texture -->
+    <div class="absolute inset-0 bg-noise z-10 opacity-70"></div>
+    
+    <!-- Floating Particle Canvas -->
+    <canvas id="particleCanvas" class="absolute inset-0 z-[2] opacity-60"></canvas>
+    
+    <!-- Animated Aurora Lights -->
+    <div class="aurora-orb-1 -top-32 left-1/4"></div>
+    <div class="aurora-orb-2 top-1/3 -right-48"></div>
+    <div class="aurora-orb-3 top-2/3 left-10"></div>
+    <div class="aurora-orb-1 bottom-10 right-1/4"></div>
+  </div>
 
   <!-- Reading Progress Bar -->
-  <div id="progressBar" class="fixed top-0 left-0 h-[2px] bg-gradient-to-r from-brand-500 via-indigo-500 to-sky-400 z-50 transition-all duration-75 w-0"></div>
+  <div id="progressBar" class="fixed top-0 left-0 h-[2.5px] bg-gradient-to-r from-aurora-blue via-aurora-violet to-aurora-sky z-50 transition-all duration-75 w-0"></div>
 
-  <!-- ==================== HEADER / NAVBAR ==================== -->
-  <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-4 px-6 md:px-12 bg-dark-bg/70 backdrop-blur-xl border-b border-white/5">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
+  <!-- ==================== FLOATING GLASS NAVBAR ==================== -->
+  <header id="navbar" class="fixed top-5 left-0 right-0 z-40 px-4 sm:px-8 transition-all duration-300">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-5 py-3 rounded-2xl glass-surface border border-white/10 bg-midnight-card/70 backdrop-blur-xl shadow-glass">
       
-      <!-- Brand Logo / Name -->
+      <!-- Brand Logo / Identity -->
       <a href="#home" class="group flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-aurora-blue via-indigo-600 to-aurora-violet flex items-center justify-center text-white font-heading font-bold text-sm shadow-md shadow-aurora-blue/25 group-hover:scale-105 transition-transform duration-300">
           KS
         </div>
         <div class="flex flex-col">
-          <span class="font-bold tracking-tight text-white dark:text-white light:text-slate-900 text-sm md:text-base">Kowshik Sravanam</span>
-          <span class="text-[10px] font-mono text-slate-400">Aspiring AI Engineer</span>
+          <span class="font-heading font-bold tracking-tight text-white text-sm md:text-base group-hover:text-aurora-sky transition-colors">
+            Kowshik Sravanam
+          </span>
+          <span class="text-[10px] font-mono text-content-secondary tracking-wider">
+            Aspiring AI Engineer
+          </span>
         </div>
       </a>
 
       <!-- Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center gap-1 bg-slate-900/40 p-1.5 rounded-full border border-white/10 dark:bg-slate-900/60 light:bg-slate-100 light:border-slate-200">
-        <a href="#home" class="nav-link px-3.5 py-1.5 text-xs font-medium rounded-full text-slate-300 hover:text-white transition-colors active">Home</a>
-        <a href="#about" class="nav-link px-3.5 py-1.5 text-xs font-medium rounded-full text-slate-300 hover:text-white transition-colors">About</a>
-        <a href="#skills" class="nav-link px-3.5 py-1.5 text-xs font-medium rounded-full text-slate-300 hover:text-white transition-colors">Skills</a>
-        <a href="#projects" class="nav-link px-3.5 py-1.5 text-xs font-medium rounded-full text-slate-300 hover:text-white transition-colors">Projects</a>
-        <a href="#achievements" class="nav-link px-3.5 py-1.5 text-xs font-medium rounded-full text-slate-300 hover:text-white transition-colors">Achievements</a>
-        <a href="#contact" class="nav-link px-3.5 py-1.5 text-xs font-medium rounded-full text-slate-300 hover:text-white transition-colors">Contact</a>
+      <nav class="hidden md:flex items-center gap-7 text-xs font-medium text-content-secondary">
+        <a href="#home" class="nav-link-aurora hover:text-white py-1 active" data-nav="home">Home</a>
+        <a href="#about" class="nav-link-aurora hover:text-white py-1" data-nav="about">About</a>
+        <a href="#skills" class="nav-link-aurora hover:text-white py-1" data-nav="skills">Skills</a>
+        <a href="#projects" class="nav-link-aurora hover:text-white py-1" data-nav="projects">Projects</a>
+        <a href="#achievements" class="nav-link-aurora hover:text-white py-1" data-nav="achievements">Achievements</a>
+        <a href="#contact" class="nav-link-aurora hover:text-white py-1" data-nav="contact">Contact</a>
       </nav>
 
-      <!-- Right CTAs: Theme Toggle & Resume -->
-      <div class="flex items-center gap-2.5">
-        
-        <!-- Dark/Light Mode Toggle -->
-        <button id="themeToggle" aria-label="Toggle Theme" class="w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 bg-slate-800/40 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">
-          <i data-lucide="sun" id="sunIcon" class="w-4 h-4 hidden"></i>
-          <i data-lucide="moon" id="moonIcon" class="w-4 h-4"></i>
-        </button>
-
+      <!-- Right CTAs: Theme & Resume -->
+      <div class="flex items-center gap-3">
         <!-- Resume Download Button -->
-        <a href="./public/kowshik-sravanam-resume.pdf" download="Kowshik_Sravanam_Resume.pdf" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/15 transition-all hover:scale-[1.02] shadow-sm">
-          <i data-lucide="download" class="w-3.5 h-3.5 text-brand-400"></i>
+        <a href="./public/kowshik-sravanam-resume.pdf" download="Kowshik_Sravanam_Resume.pdf" class="magnetic-btn hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/15 hover:border-aurora-sky/40 transition-all shadow-sm">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-aurora-sky"></i>
           <span>Resume</span>
         </a>
 
         <!-- Mobile Menu Toggle Button -->
-        <button id="mobileMenuBtn" aria-label="Open Navigation Menu" class="md:hidden w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 bg-slate-800/50 text-slate-300">
-          <i data-lucide="menu" class="w-4 h-4"></i>
+        <button id="mobileMenuBtn" aria-label="Toggle Navigation Menu" class="md:hidden w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 bg-white/5 text-content-secondary hover:text-white hover:bg-white/10 transition-colors">
+          <i data-lucide="menu" id="menuOpenIcon" class="w-4 h-4"></i>
+          <i data-lucide="x" id="menuCloseIcon" class="w-4 h-4 hidden"></i>
         </button>
       </div>
 
     </div>
 
-    <!-- Mobile Drawer Menu -->
-    <div id="mobileMenu" class="md:hidden hidden pt-4 pb-2 border-t border-white/10 mt-3 space-y-1">
-      <a href="#home" class="mobile-nav-link block px-4 py-2 text-sm rounded-lg text-slate-300 hover:bg-white/5">Home</a>
-      <a href="#about" class="mobile-nav-link block px-4 py-2 text-sm rounded-lg text-slate-300 hover:bg-white/5">About Me</a>
-      <a href="#skills" class="mobile-nav-link block px-4 py-2 text-sm rounded-lg text-slate-300 hover:bg-white/5">Skills</a>
-      <a href="#projects" class="mobile-nav-link block px-4 py-2 text-sm rounded-lg text-slate-300 hover:bg-white/5">Projects</a>
-      <a href="#achievements" class="mobile-nav-link block px-4 py-2 text-sm rounded-lg text-slate-300 hover:bg-white/5">Achievements</a>
-      <a href="#contact" class="mobile-nav-link block px-4 py-2 text-sm rounded-lg text-slate-300 hover:bg-white/5">Contact</a>
-      <a href="./public/kowshik-sravanam-resume.pdf" download="Kowshik_Sravanam_Resume.pdf" class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-lg text-brand-400 font-medium bg-brand-500/10 mt-2">
-        <i data-lucide="download" class="w-4 h-4"></i> Download Resume
-      </a>
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden md:hidden mt-2 max-w-6xl mx-auto rounded-2xl glass-surface border border-white/10 p-4 space-y-1 bg-midnight-card/90 shadow-2xl backdrop-blur-2xl">
+      <a href="#home" class="mobile-nav-link block px-4 py-2.5 text-sm font-medium rounded-xl text-content-main hover:bg-white/10 hover:text-aurora-sky transition-colors">Home</a>
+      <a href="#about" class="mobile-nav-link block px-4 py-2.5 text-sm font-medium rounded-xl text-content-secondary hover:bg-white/10 hover:text-white transition-colors">About</a>
+      <a href="#skills" class="mobile-nav-link block px-4 py-2.5 text-sm font-medium rounded-xl text-content-secondary hover:bg-white/10 hover:text-white transition-colors">Skills</a>
+      <a href="#projects" class="mobile-nav-link block px-4 py-2.5 text-sm font-medium rounded-xl text-content-secondary hover:bg-white/10 hover:text-white transition-colors">Projects</a>
+      <a href="#achievements" class="mobile-nav-link block px-4 py-2.5 text-sm font-medium rounded-xl text-content-secondary hover:bg-white/10 hover:text-white transition-colors">Achievements</a>
+      <a href="#contact" class="mobile-nav-link block px-4 py-2.5 text-sm font-medium rounded-xl text-content-secondary hover:bg-white/10 hover:text-white transition-colors">Contact</a>
+      <div class="pt-2 border-t border-white/10">
+        <a href="./public/kowshik-sravanam-resume.pdf" download="Kowshik_Sravanam_Resume.pdf" class="flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl text-white bg-aurora-blue/80 hover:bg-aurora-blue transition-colors">
+          <i data-lucide="download" class="w-4 h-4"></i> Download Resume
+        </a>
+      </div>
     </div>
   </header>
 
-
   <!-- ==================== MAIN CONTENT ==================== -->
-  <main class="relative z-10 pt-28">
+  <main class="relative z-10 pt-28 md:pt-36">
 
-    <!-- 1. HOME / HERO SECTION -->
-    <section id="home" class="min-h-[88vh] flex items-center px-6 md:px-12 py-12 md:py-20 max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
+    <!-- ==================== 1. HERO SECTION (SPLIT-SCREEN) ==================== -->
+    <section id="home" class="min-h-[88vh] flex items-center justify-center px-6 md:px-12 py-12">
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         
-        <!-- Left Column: Copy & Introductions -->
-        <div class="lg:col-span-7 space-y-7">
+        <!-- Left Column: Copy & CTAs -->
+        <div class="lg:col-span-7 space-y-6 text-left reveal">
           
           <!-- Availability Badge -->
-          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium bg-brand-500/10 text-brand-400 border border-brand-500/20 backdrop-blur-md">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Open to Learning & Opportunities</span>
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full glass-surface border border-emerald-500/30 bg-emerald-950/20 text-emerald-400 text-xs font-mono">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 status-pulse"></span>
+            <span>Open to Learning &amp; Opportunities</span>
           </div>
 
-          <!-- Headline -->
-          <div class="space-y-3">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
-              Hi, I’m <br />
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-sky-300 to-indigo-400">
-                Kowshik Sravanam
-              </span>
-            </h1>
-            <p class="text-lg sm:text-xl font-medium text-slate-300 leading-snug">
-              Aspiring AI Engineer <span class="text-brand-400">|</span> B.Tech Student <span class="text-brand-400">|</span> Technology Enthusiast
-            </p>
-          </div>
+          <!-- Academic Headline -->
+          <p class="text-xs sm:text-sm font-mono tracking-wider text-aurora-sky uppercase font-semibold">
+            B.Tech – First Year Student at NIAT
+          </p>
 
-          <!-- Introduction Paragraph -->
-          <p class="text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl font-normal">
+          <!-- Main Name & Title -->
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold tracking-tight leading-[1.08]">
+            <span class="text-aurora-subtle">Hi, I'm</span><br />
+            <span class="text-aurora-gradient">Kowshik Sravanam</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl font-heading font-semibold text-content-main/90">
+            Aspiring AI Engineer <span class="text-aurora-sky">|</span> B.Tech Student <span class="text-aurora-violet">|</span> Technology Enthusiast
+          </p>
+
+          <!-- Professional Introduction -->
+          <p class="text-content-secondary text-sm sm:text-base leading-relaxed max-w-2xl font-body">
             I am an enthusiastic technology student passionate about Artificial Intelligence, software development, and solving real-world problems through technology. I continuously explore new technologies, build practical projects, and improve my technical and problem-solving skills.
           </p>
 
-          <!-- Academic Status Chip -->
-          <div class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/60 border border-white/5 max-w-xl">
-            <div class="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 flex-shrink-0">
-              <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <!-- Career Goal Callout -->
+          <div class="p-4 rounded-2xl glass-surface border border-white/10 bg-midnight-card/50 flex items-start gap-3 max-w-2xl">
+            <div class="w-8 h-8 rounded-lg bg-aurora-blue/20 border border-aurora-blue/30 flex items-center justify-center text-aurora-sky shrink-0 mt-0.5">
+              <i data-lucide="target" class="w-4 h-4"></i>
             </div>
-            <div class="text-xs">
-              <div class="font-semibold text-slate-200">B.Tech – First Year Computer Science Student</div>
-              <div class="text-slate-400">NxtWave of Innovation in Advanced Technologies (NIAT) · 2026–2030</div>
+            <div>
+              <div class="text-xs font-mono uppercase text-aurora-sky font-semibold tracking-wide">Career Goal</div>
+              <p class="text-xs sm:text-sm text-content-main/90 mt-0.5 font-medium leading-relaxed">
+                To become an AI Engineer and develop impactful technology solutions that solve real-world challenges.
+              </p>
             </div>
           </div>
 
-          <!-- CTAs -->
+          <!-- CTAs & Socials -->
           <div class="flex flex-wrap items-center gap-4 pt-2">
-            <a href="#projects" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-600 hover:to-indigo-700 shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all hover:-translate-y-0.5">
+            <!-- CTA 1: Explore Work -->
+            <a href="#projects" class="magnetic-btn px-6 py-3.5 rounded-xl font-heading font-bold text-sm text-white bg-gradient-to-r from-aurora-blue to-aurora-violet hover:from-blue-600 hover:to-indigo-600 shadow-aurora-glow hover:scale-[1.02] transition-all flex items-center gap-2">
               <span>Explore My Work</span>
-              <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
-            
-            <a href="#contact" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-sm font-semibold text-slate-200 bg-slate-800/80 hover:bg-slate-800 border border-white/10 hover:border-white/20 transition-all hover:-translate-y-0.5">
-              <span>Let’s Connect</span>
-              <i data-lucide="mail" class="w-4 h-4 text-brand-400"></i>
+
+            <!-- CTA 2: Let's Connect -->
+            <a href="#contact" class="magnetic-btn px-6 py-3.5 rounded-xl font-heading font-semibold text-sm text-content-main bg-white/5 hover:bg-white/10 border border-white/15 hover:border-aurora-sky/40 hover:scale-[1.02] transition-all flex items-center gap-2">
+              <span>Let's Connect</span>
+              <i data-lucide="message-square" class="w-4 h-4 text-aurora-sky"></i>
             </a>
 
             <!-- Social Links -->
-            <div class="flex items-center gap-2 pl-2">
-              <a href="https://linkedin.com/in/kowshik-sravanam-622b7942b" target="_blank" rel="noreferrer" aria-label="LinkedIn" class="w-10 h-10 rounded-xl bg-slate-900/80 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500/50 hover:bg-brand-500/10 transition-all">
+            <div class="flex items-center gap-2 sm:pl-2">
+              <a href="https://linkedin.com/in/kowshik-sravanam-622b7942b" target="_blank" rel="noreferrer" aria-label="LinkedIn" class="magnetic-btn w-11 h-11 rounded-xl glass-surface border border-white/10 hover:border-aurora-sky/50 text-content-secondary hover:text-white flex items-center justify-center transition-colors">
                 <i data-lucide="linkedin" class="w-4 h-4"></i>
               </a>
-              <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" aria-label="GitHub" class="w-10 h-10 rounded-xl bg-slate-900/80 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500/50 hover:bg-brand-500/10 transition-all">
+              <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" aria-label="GitHub" class="magnetic-btn w-11 h-11 rounded-xl glass-surface border border-white/10 hover:border-aurora-violet/50 text-content-secondary hover:text-white flex items-center justify-center transition-colors">
                 <i data-lucide="github" class="w-4 h-4"></i>
               </a>
             </div>
@@ -243,122 +476,145 @@
 
         </div>
 
-        <!-- Right Column: Professional Portrait Frame -->
-        <div class="lg:col-span-5 flex justify-center lg:justify-end">
-          <div class="relative w-72 sm:w-80 md:w-96 aspect-square">
+        <!-- Right Column: Professional Portrait in Glass Frame -->
+        <div class="lg:col-span-5 flex justify-center lg:justify-end reveal">
+          <div class="relative w-72 sm:w-84 md:w-96 aspect-square tilt-card">
             
-            <!-- Outer Ambient Glow & Glass Ring -->
-            <div class="absolute -inset-4 rounded-full bg-gradient-to-tr from-brand-500/20 via-indigo-500/20 to-transparent blur-2xl"></div>
-            
-            <!-- Rotating Decorative Border -->
-            <div class="absolute -inset-1 rounded-full border border-dashed border-brand-400/30 animate-[spin_40s_linear_infinite]"></div>
-            
-            <!-- Main Circular Glass Frame -->
-            <div class="relative w-full h-full rounded-full p-2 bg-slate-900/80 border-2 border-white/10 shadow-2xl overflow-hidden backdrop-blur-xl">
+            <!-- Ambient Rim Light -->
+            <div class="absolute -inset-4 rounded-full bg-gradient-to-tr from-aurora-blue/30 via-aurora-violet/20 to-aurora-sky/30 blur-2xl opacity-75"></div>
+
+            <!-- Glass Frame Container -->
+            <div class="relative w-full h-full rounded-full p-2.5 glass-surface border-2 border-white/15 shadow-glass-hover overflow-hidden group">
+              <!-- Color Blazer Portrait -->
               <img 
                 src="./public/images/kowshik-hero.jpg" 
                 alt="Kowshik Sravanam — Aspiring AI Engineer"
-                class="w-full h-full object-cover rounded-full filter contrast-[1.03] transition-transform duration-700 hover:scale-105"
+                class="w-full h-full object-cover rounded-full filter contrast-[1.03] group-hover:scale-105 transition-transform duration-700"
               />
+              <div class="absolute inset-0 rounded-full bg-gradient-to-t from-midnight-main/40 via-transparent to-transparent pointer-events-none"></div>
             </div>
 
-            <!-- Floating Badge: Technology Focus -->
-            <div class="absolute -bottom-2 -left-4 px-4 py-2.5 rounded-2xl bg-slate-900/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center">
-                <i data-lucide="cpu" class="w-4 h-4"></i>
-              </div>
-              <div class="text-[11px]">
-                <div class="font-bold text-white">Future AI Engineer</div>
-                <div class="text-slate-400">Think · Build · Solve</div>
+            <!-- Floating Information Badge 1 (Top Left) -->
+            <div class="float-badge absolute -top-3 -left-4 sm:-left-6 px-3.5 py-2 rounded-xl glass-surface border border-white/15 bg-midnight-card/80 backdrop-blur-xl shadow-glass flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-aurora-blue/20 flex items-center justify-center text-aurora-sky">
+                <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+              </span>
+              <div class="text-left">
+                <div class="text-[10px] font-mono text-content-secondary uppercase">Focus</div>
+                <div class="text-xs font-heading font-bold text-white">AI &amp; GenAI</div>
               </div>
             </div>
 
-            <!-- Floating Badge: Top Right -->
-            <div class="absolute -top-2 -right-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-white/10 shadow-lg backdrop-blur-md flex items-center gap-1.5 text-[11px] font-mono text-brand-300">
-              <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
-              <span>Python & AI</span>
+            <!-- Floating Information Badge 2 (Bottom Right) -->
+            <div class="float-badge-delayed absolute -bottom-3 -right-3 sm:-right-5 px-3.5 py-2 rounded-xl glass-surface border border-white/15 bg-midnight-card/80 backdrop-blur-xl shadow-glass flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-aurora-violet/20 flex items-center justify-center text-aurora-violet">
+                <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
+              </span>
+              <div class="text-left">
+                <div class="text-[10px] font-mono text-content-secondary uppercase">Academics</div>
+                <div class="text-xs font-heading font-bold text-white">NIAT · B.Tech</div>
+              </div>
             </div>
 
           </div>
         </div>
 
       </div>
+
+      <!-- Subtle Scroll Down Indicator -->
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-content-secondary text-[11px] font-mono opacity-70 hover:opacity-100 transition-opacity">
+        <span>Scroll to explore</span>
+        <a href="#about" aria-label="Scroll down" class="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
+          <span class="w-1 h-2 rounded-full bg-aurora-sky animate-bounce"></span>
+        </a>
+      </div>
     </section>
 
 
-    <!-- 2. ABOUT ME SECTION -->
-    <section id="about" class="py-24 px-6 md:px-12 border-t border-white/5 bg-slate-950/40">
-      <div class="max-w-7xl mx-auto space-y-16">
+    <!-- ==================== 2. ABOUT ME SECTION ==================== -->
+    <section id="about" class="py-24 px-6 md:px-12 relative">
+      <div class="max-w-7xl mx-auto space-y-12">
         
         <!-- Section Header -->
-        <div class="space-y-3">
-          <div class="inline-flex items-center gap-2 text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">
-            <span>01 / Introduction</span>
+        <div class="text-left space-y-2 reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-aurora-sky bg-aurora-sky/10 border border-aurora-sky/20">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            <span>01 / ABOUT ME</span>
           </div>
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
-            About Me
+          <h2 class="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-white">
+            Driven by Curiosity, <span class="text-aurora-gradient">Shaped by Code.</span>
           </h2>
-          <p class="text-slate-400 text-sm md:text-base max-w-2xl">
-            A glimpse into my background, academic direction, and passion for technology.
+          <p class="text-content-secondary text-sm sm:text-base max-w-2xl font-body">
+            A first-year engineering student dedicated to understanding the foundations of intelligent computing and transforming software concepts into working solutions.
           </p>
         </div>
 
-        <!-- Content Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Asymmetric Bento Cards for About -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          <!-- Secondary Portrait Card -->
-          <div class="lg:col-span-5 flex justify-center">
-            <div class="glass-panel p-6 rounded-3xl w-full max-w-md space-y-5 border border-white/10 relative group">
-              <div class="w-48 h-48 mx-auto rounded-full overflow-hidden border-2 border-brand-400/30 shadow-xl relative bg-slate-900">
-                <img 
-                  src="./public/images/kowshik-smiling.jpg" 
-                  alt="Kowshik Sravanam smiling" 
-                  class="w-full h-full object-cover filter contrast-[1.02] group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div class="text-center space-y-1">
-                <h3 class="font-bold text-white text-lg">Kowshik Sravanam</h3>
-                <p class="text-xs font-mono text-brand-400">B.Tech Student · NIAT</p>
-              </div>
-              <div class="pt-4 border-t border-white/5 grid grid-cols-2 gap-3 text-xs">
-                <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5">
-                  <div class="text-slate-400 text-[10px] uppercase font-mono">Based In</div>
-                  <div class="font-medium text-slate-200 mt-0.5">Rajahmundry, India</div>
-                </div>
-                <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5">
-                  <div class="text-slate-400 text-[10px] uppercase font-mono">Current Focus</div>
-                  <div class="font-medium text-slate-200 mt-0.5">AI & Web Dev</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Narrative Text & Objectives -->
-          <div class="lg:col-span-7 space-y-6 text-slate-300 text-base leading-relaxed">
-            
-            <p class="text-lg text-slate-200 font-normal">
-              I am currently pursuing my <strong class="text-white font-semibold">B.Tech in Computer Science</strong> as a first-year student at <strong class="text-white font-semibold">NxtWave of Innovation in Advanced Technologies (NIAT)</strong>.
-            </p>
-
-            <p>
-              My passion lies at the intersection of <strong class="text-brand-300 font-semibold">Artificial Intelligence, Machine Learning, Python programming, and Web Development</strong>. I am fascinated by the potential of Generative AI to revolutionize how humans interact with digital tools and solve complex challenges.
-            </p>
-
-            <p>
-              My learning journey is driven by practical execution. Rather than limiting myself to theoretical classroom knowledge, I actively participate in <strong class="text-white font-semibold">hackathons, ideathons, and personal coding projects</strong> to test ideas, solve realistic problems, and cultivate a disciplined engineering mindset.
-            </p>
-
-            <!-- Career Goal Banner -->
-            <div class="p-5 rounded-2xl bg-gradient-to-r from-brand-950/60 via-slate-900 to-indigo-950/50 border border-brand-500/20 space-y-1.5">
-              <div class="text-xs font-mono text-brand-400 font-semibold uppercase flex items-center gap-2">
-                <i data-lucide="target" class="w-4 h-4"></i>
-                <span>Career Goal</span>
-              </div>
-              <p class="text-sm text-slate-200 font-medium">
-                To grow into a high-impact AI Engineer and build technology solutions that create meaningful, measurable value in real-world environments.
+          <!-- Narrative & Journey Card (Span 7) -->
+          <div class="lg:col-span-7 glass-card p-8 flex flex-col justify-between space-y-6 reveal">
+            <div class="space-y-4">
+              <h3 class="text-xl sm:text-2xl font-heading font-bold text-white flex items-center gap-2.5">
+                <i data-lucide="book-open" class="w-5 h-5 text-aurora-sky"></i>
+                Educational Background &amp; Vision
+              </h3>
+              <p class="text-content-secondary text-sm sm:text-base leading-relaxed">
+                Currently pursuing my <strong>B.Tech degree at NIAT (First Year)</strong>. My primary technical passions revolve around <strong>Artificial Intelligence, Machine Learning, Python programming, Web Development</strong>, and the emerging architecture of <strong>Generative AI</strong>.
+              </p>
+              <p class="text-content-secondary text-sm leading-relaxed">
+                I believe that true engineering excellence starts at the foundational level. In my first year, I am actively sharpening algorithmic logic and OOP in Python, while challenging myself through collegiate <strong>hackathons and ideathons</strong> to construct real-world systems.
               </p>
             </div>
 
+            <!-- Key Fact Highlights Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-white/10">
+              <div class="p-3 rounded-xl bg-white/5 border border-white/5">
+                <div class="text-[10px] font-mono text-aurora-sky uppercase">Institution</div>
+                <div class="text-xs font-heading font-bold text-white mt-1">NIAT</div>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/5">
+                <div class="text-[10px] font-mono text-aurora-violet uppercase">Degree</div>
+                <div class="text-xs font-heading font-bold text-white mt-1">B.Tech (1st Yr)</div>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/5">
+                <div class="text-[10px] font-mono text-aurora-sky uppercase">Core Stack</div>
+                <div class="text-xs font-heading font-bold text-white mt-1">Python &amp; AI</div>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/5">
+                <div class="text-[10px] font-mono text-emerald-400 uppercase">Ambition</div>
+                <div class="text-xs font-heading font-bold text-white mt-1">AI Engineer</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Portrait & Learning Journey Card (Span 5) -->
+          <div class="lg:col-span-5 glass-card p-6 flex flex-col items-center justify-center text-center reveal">
+            <!-- Smiling Portrait in Circular Accent Frame -->
+            <div class="relative w-44 h-44 rounded-full p-2 glass-surface border-2 border-aurora-sky/30 shadow-glass-hover mb-5 group">
+              <img 
+                src="./public/images/kowshik-smiling.jpg" 
+                alt="Kowshik Sravanam smiling" 
+                class="w-full h-full object-cover rounded-full filter contrast-[1.02] group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 rounded-full border border-white/20 pointer-events-none"></div>
+            </div>
+
+            <h4 class="text-lg font-heading font-bold text-white">Kowshik Sravanam</h4>
+            <p class="text-xs font-mono text-aurora-sky mt-0.5">Technology Student &amp; AI Explorer</p>
+            
+            <p class="text-xs text-content-secondary mt-3 max-w-xs leading-relaxed">
+              "Continuous learning is my core philosophy. Every project, bug, and hackathon prompt is an opportunity to expand my technical horizon."
+            </p>
+
+            <div class="mt-4 flex items-center gap-2">
+              <span class="px-3 py-1 rounded-full text-[11px] font-mono text-aurora-sky bg-aurora-sky/10 border border-aurora-sky/20">
+                Hackathon Participant
+              </span>
+              <span class="px-3 py-1 rounded-full text-[11px] font-mono text-aurora-violet bg-aurora-violet/10 border border-aurora-violet/20">
+                Ideathon Builder
+              </span>
+            </div>
           </div>
 
         </div>
@@ -367,190 +623,197 @@
     </section>
 
 
-    <!-- 3. SKILLS SECTION -->
-    <section id="skills" class="py-24 px-6 md:px-12 border-t border-white/5">
-      <div class="max-w-7xl mx-auto space-y-16">
+    <!-- ==================== 3. SKILLS SECTION ==================== -->
+    <section id="skills" class="py-24 px-6 md:px-12 relative">
+      <div class="max-w-7xl mx-auto space-y-12">
         
         <!-- Section Header -->
-        <div class="space-y-3">
-          <div class="inline-flex items-center gap-2 text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">
-            <span>02 / Capabilities</span>
+        <div class="text-left space-y-2 reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-aurora-violet bg-aurora-violet/10 border border-aurora-violet/20">
+            <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+            <span>02 / TECHNICAL COMPETENCIES</span>
           </div>
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
-            Technical & Professional Skills
+          <h2 class="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-white">
+            Skills &amp; <span class="text-aurora-gradient">Capabilities.</span>
           </h2>
-          <p class="text-slate-400 text-sm md:text-base max-w-2xl">
-            Organized honestly by current proficiency levels. Focused on strong fundamentals and continuous improvement.
+          <p class="text-content-secondary text-sm sm:text-base max-w-2xl font-body">
+            Honest and accurate presentation of my current technical proficiencies across programming, emerging AI, and professional execution.
           </p>
         </div>
 
-        <!-- 3 Categorized Skill Columns -->
+        <!-- 3 Categorized Glass Containers -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           
           <!-- Category 1: Programming -->
-          <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center border border-brand-500/20">
+          <div class="glass-card p-6 space-y-5 reveal">
+            <div class="flex items-center gap-3 pb-3 border-b border-white/10">
+              <div class="w-10 h-10 rounded-xl bg-aurora-blue/20 border border-aurora-blue/30 flex items-center justify-center text-aurora-sky">
                 <i data-lucide="code-2" class="w-5 h-5"></i>
               </div>
               <div>
-                <h3 class="font-bold text-white text-base">Programming</h3>
-                <p class="text-xs text-slate-400">Core languages & syntax</p>
+                <h3 class="font-heading font-bold text-base text-white">Programming</h3>
+                <p class="text-[11px] font-mono text-content-secondary">Core Languages</p>
               </div>
             </div>
 
             <div class="space-y-4">
               <!-- Python -->
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-2">
+              <div class="space-y-1.5">
                 <div class="flex justify-between text-xs">
-                  <span class="font-semibold text-slate-200">Python</span>
-                  <span class="font-mono text-brand-400 text-[11px]">Primary Language</span>
+                  <span class="font-semibold text-white">Python</span>
+                  <span class="font-mono text-aurora-sky text-[11px]">Intermediate</span>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5">
-                  <div class="bg-brand-400 h-1.5 rounded-full w-3/4"></div>
+                <div class="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-aurora-blue to-aurora-sky w-3/4"></div>
                 </div>
+                <p class="text-[11px] text-content-secondary font-body">Data structures, OOP, mathematical logic, scripting</p>
               </div>
 
               <!-- HTML -->
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-2">
+              <div class="space-y-1.5">
                 <div class="flex justify-between text-xs">
-                  <span class="font-semibold text-slate-200">HTML5</span>
-                  <span class="font-mono text-slate-400 text-[11px]">Semantic Structure</span>
+                  <span class="font-semibold text-white">HTML5</span>
+                  <span class="font-mono text-aurora-sky text-[11px]">Proficient</span>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5">
-                  <div class="bg-brand-400 h-1.5 rounded-full w-4/5"></div>
+                <div class="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-aurora-blue to-aurora-sky w-4/5"></div>
                 </div>
+                <p class="text-[11px] text-content-secondary font-body">Semantic structuring, accessibility &amp; modern layouts</p>
               </div>
 
               <!-- CSS -->
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-2">
+              <div class="space-y-1.5">
                 <div class="flex justify-between text-xs">
-                  <span class="font-semibold text-slate-200">CSS3 & Styling</span>
-                  <span class="font-mono text-slate-400 text-[11px]">Responsive Design</span>
+                  <span class="font-semibold text-white">CSS3 / Tailwind</span>
+                  <span class="font-mono text-aurora-sky text-[11px]">Intermediate</span>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5">
-                  <div class="bg-brand-400 h-1.5 rounded-full w-3/4"></div>
+                <div class="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-aurora-blue to-aurora-sky w-[70%]"></div>
                 </div>
+                <p class="text-[11px] text-content-secondary font-body">Flexbox, CSS Grid, Glassmorphism &amp; responsiveness</p>
               </div>
 
               <!-- JavaScript -->
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-2">
+              <div class="space-y-1.5">
                 <div class="flex justify-between text-xs">
-                  <span class="font-semibold text-slate-200">JavaScript</span>
-                  <span class="font-mono text-slate-400 text-[11px]">Foundation</span>
+                  <span class="font-semibold text-white">JavaScript</span>
+                  <span class="font-mono text-aurora-sky text-[11px]">Foundational</span>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5">
-                  <div class="bg-brand-400 h-1.5 rounded-full w-3/5"></div>
+                <div class="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-aurora-blue to-aurora-sky w-1/2"></div>
                 </div>
+                <p class="text-[11px] text-content-secondary font-body">DOM events, ES6 syntax, interactive logic</p>
               </div>
             </div>
           </div>
 
-          <!-- Category 2: Technology & AI -->
-          <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20">
-                <i data-lucide="sparkles" class="w-5 h-5"></i>
+          <!-- Category 2: Technology -->
+          <div class="glass-card p-6 space-y-5 reveal">
+            <div class="flex items-center gap-3 pb-3 border-b border-white/10">
+              <div class="w-10 h-10 rounded-xl bg-aurora-violet/20 border border-aurora-violet/30 flex items-center justify-center text-aurora-violet">
+                <i data-lucide="cpu" class="w-5 h-5"></i>
               </div>
               <div>
-                <h3 class="font-bold text-white text-base">Technology</h3>
-                <p class="text-xs text-slate-400">Domains & applications</p>
+                <h3 class="font-heading font-bold text-base text-white">Technology</h3>
+                <p class="text-[11px] font-mono text-content-secondary">AI &amp; Concepts</p>
               </div>
             </div>
 
             <div class="space-y-4">
-              <!-- AI -->
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-2">
+              <!-- Artificial Intelligence -->
+              <div class="space-y-1.5">
                 <div class="flex justify-between text-xs">
-                  <span class="font-semibold text-slate-200">Artificial Intelligence</span>
-                  <span class="font-mono text-indigo-400 text-[11px]">Exploring & Concepts</span>
+                  <span class="font-semibold text-white">Artificial Intelligence</span>
+                  <span class="font-mono text-aurora-violet text-[11px]">Foundational</span>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5">
-                  <div class="bg-indigo-400 h-1.5 rounded-full w-3/5"></div>
+                <div class="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-aurora-violet to-indigo-400 w-1/2"></div>
                 </div>
+                <p class="text-[11px] text-content-secondary font-body">Core AI paradigms, classification concepts &amp; search</p>
               </div>
 
-              <!-- Generative AI -->
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-2">
+              <!-- Generative AI Fundamentals -->
+              <div class="space-y-1.5">
                 <div class="flex justify-between text-xs">
-                  <span class="font-semibold text-slate-200">Generative AI Fundamentals</span>
-                  <span class="font-mono text-indigo-400 text-[11px]">LLMs & Prompting</span>
+                  <span class="font-semibold text-white">Generative AI Fundamentals</span>
+                  <span class="font-mono text-aurora-violet text-[11px]">Foundational</span>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5">
-                  <div class="bg-indigo-400 h-1.5 rounded-full w-3/5"></div>
+                <div class="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-aurora-violet to-indigo-400 w-1/2"></div>
                 </div>
+                <p class="text-[11px] text-content-secondary font-body">Prompt design, LLM capabilities, tokenization &amp; tooling</p>
               </div>
 
-              <!-- Web Dev -->
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-2">
+              <!-- Web Development -->
+              <div class="space-y-1.5">
                 <div class="flex justify-between text-xs">
-                  <span class="font-semibold text-slate-200">Web Development</span>
-                  <span class="font-mono text-indigo-400 text-[11px]">Frontend Projects</span>
+                  <span class="font-semibold text-white">Web Development</span>
+                  <span class="font-mono text-aurora-violet text-[11px]">Intermediate</span>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5">
-                  <div class="bg-indigo-400 h-1.5 rounded-full w-2/3"></div>
+                <div class="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-aurora-violet to-indigo-400 w-[65%]"></div>
                 </div>
+                <p class="text-[11px] text-content-secondary font-body">Frontend architecture, client UI and local web servers</p>
               </div>
 
               <!-- Problem Solving -->
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 space-y-2">
+              <div class="space-y-1.5">
                 <div class="flex justify-between text-xs">
-                  <span class="font-semibold text-slate-200">Problem Solving</span>
-                  <span class="font-mono text-indigo-400 text-[11px]">Logic Building</span>
+                  <span class="font-semibold text-white">Problem Solving</span>
+                  <span class="font-mono text-aurora-violet text-[11px]">Practicing</span>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5">
-                  <div class="bg-indigo-400 h-1.5 rounded-full w-3/4"></div>
+                <div class="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-aurora-violet to-indigo-400 w-3/5"></div>
                 </div>
+                <p class="text-[11px] text-content-secondary font-body">Algorithmic approach, edge cases &amp; defensive coding</p>
               </div>
             </div>
           </div>
 
           <!-- Category 3: Professional Skills -->
-          <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center border border-sky-500/20">
-                <i data-lucide="users" class="w-5 h-5"></i>
+          <div class="glass-card p-6 space-y-5 reveal">
+            <div class="flex items-center gap-3 pb-3 border-b border-white/10">
+              <div class="w-10 h-10 rounded-xl bg-aurora-sky/20 border border-aurora-sky/30 flex items-center justify-center text-aurora-sky">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
               </div>
               <div>
-                <h3 class="font-bold text-white text-base">Professional Skills</h3>
-                <p class="text-xs text-slate-400">Collaboration & approach</p>
+                <h3 class="font-heading font-bold text-base text-white">Professional Skills</h3>
+                <p class="text-[11px] font-mono text-content-secondary">Work &amp; Team Culture</p>
               </div>
             </div>
 
-            <div class="grid grid-cols-1 gap-3">
-              
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 flex items-center gap-3">
-                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+            <div class="space-y-3">
+              <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-start gap-3">
+                <i data-lucide="users" class="w-4 h-4 text-aurora-sky shrink-0 mt-0.5"></i>
                 <div>
-                  <div class="text-xs font-semibold text-slate-200">Teamwork</div>
-                  <div class="text-[11px] text-slate-400">Effective in team hackathons and collaborative tasks</div>
+                  <div class="text-xs font-semibold text-white">Teamwork &amp; Collaboration</div>
+                  <p class="text-[11px] text-content-secondary mt-0.5">Active team member in collegiate hackathons &amp; project ideations.</p>
                 </div>
               </div>
 
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 flex items-center gap-3">
-                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+              <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-start gap-3">
+                <i data-lucide="message-circle" class="w-4 h-4 text-aurora-sky shrink-0 mt-0.5"></i>
                 <div>
-                  <div class="text-xs font-semibold text-slate-200">Communication</div>
-                  <div class="text-[11px] text-slate-400">Clear presentation of technical ideas and concepts</div>
+                  <div class="text-xs font-semibold text-white">Communication</div>
+                  <p class="text-[11px] text-content-secondary mt-0.5">Clear expression of technical requirements, concepts &amp; documentation.</p>
                 </div>
               </div>
 
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 flex items-center gap-3">
-                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+              <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-start gap-3">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-aurora-sky shrink-0 mt-0.5"></i>
                 <div>
-                  <div class="text-xs font-semibold text-slate-200">Creative Thinking</div>
-                  <div class="text-[11px] text-slate-400">Finding innovative ways to solve real-world problems</div>
+                  <div class="text-xs font-semibold text-white">Creative Thinking</div>
+                  <p class="text-[11px] text-content-secondary mt-0.5">Reframing user problems into actionable, elegant technology solutions.</p>
                 </div>
               </div>
 
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-white/5 flex items-center gap-3">
-                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+              <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-start gap-3">
+                <i data-lucide="refresh-cw" class="w-4 h-4 text-aurora-sky shrink-0 mt-0.5"></i>
                 <div>
-                  <div class="text-xs font-semibold text-slate-200">Adaptability & Continuous Learning</div>
-                  <div class="text-[11px] text-slate-400">Quick to learn and adopt emerging tools and frameworks</div>
+                  <div class="text-xs font-semibold text-white">Adaptability &amp; Continuous Learning</div>
+                  <p class="text-[11px] text-content-secondary mt-0.5">Rapid exploration of emerging libraries, tools, and paradigms.</p>
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -560,386 +823,554 @@
     </section>
 
 
-    <!-- 4. PROJECTS SECTION -->
-    <section id="projects" class="py-24 px-6 md:px-12 border-t border-white/5 bg-slate-950/40">
-      <div class="max-w-7xl mx-auto space-y-16">
+    <!-- ==================== 4. ASYMMETRICAL BENTO GRID PROJECTS ==================== -->
+    <section id="projects" class="py-24 px-6 md:px-12 relative">
+      <div class="max-w-7xl mx-auto space-y-12">
         
         <!-- Section Header -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div class="space-y-3">
-            <div class="inline-flex items-center gap-2 text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">
-              <span>03 / Selected Works</span>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 reveal">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-aurora-sky bg-aurora-sky/10 border border-aurora-sky/20">
+              <i data-lucide="folder-git-2" class="w-3.5 h-3.5"></i>
+              <span>03 / SELECTED WORK</span>
             </div>
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
-              Practical Projects
+            <h2 class="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-white">
+              Applied Code &amp; <span class="text-aurora-gradient">Projects.</span>
             </h2>
-            <p class="text-slate-400 text-sm md:text-base max-w-2xl">
-              Concrete implementations built to solidify programming logic, user interface engineering, and problem-solving.
+            <p class="text-content-secondary text-sm sm:text-base max-w-2xl font-body">
+              Explore my practical builds, banking simulations, algorithmic calculators, and sustainable AI platform concepts.
             </p>
           </div>
 
-          <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-white transition-colors">
+          <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" class="magnetic-btn self-start md:self-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/15 transition-all">
+            <i data-lucide="github" class="w-4 h-4"></i>
             <span>View All on GitHub</span>
-            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-aurora-sky"></i>
           </a>
         </div>
 
-        <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-          <!-- Project 1: Voter Eligibility Calculator -->
-          <article class="glass-panel p-7 rounded-2xl border border-white/10 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between space-y-6">
+        <!-- Asymmetrical Bento Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- ================= BENTO ITEM 1: Voter Eligibility Calculator (Span 7) ================= -->
+          <div class="lg:col-span-7 glass-card p-6 sm:p-8 tilt-card flex flex-col justify-between space-y-6 reveal">
             <div class="space-y-4">
+              
+              <!-- Card Header -->
               <div class="flex items-center justify-between">
-                <span class="text-xs font-mono text-brand-400 font-semibold">PROJECT / 01</span>
-                <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">LOGIC APPLICATION</span>
+                <span class="text-xs font-mono text-aurora-sky tracking-wider">PROJECT // 01</span>
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-mono bg-aurora-blue/20 text-aurora-sky border border-aurora-blue/30">
+                  Python · Logic
+                </span>
               </div>
-              <h3 class="text-2xl font-bold text-white group-hover:text-brand-300 transition-colors">
+
+              <!-- Interactive Visual Preview: Voter Verification Simulator -->
+              <div class="rounded-xl glass-surface border border-white/10 bg-midnight-main/80 p-4 space-y-3 font-mono">
+                <div class="flex items-center justify-between pb-2 border-b border-white/10 text-xs text-content-secondary">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                    <span class="ml-1 text-[11px] text-content-muted">voter_validator.py</span>
+                  </div>
+                  <span class="text-[10px] text-aurora-sky">Interactive Test</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+                  <div class="sm:col-span-7 flex items-center gap-2">
+                    <label for="voterAgeInput" class="text-xs text-content-secondary whitespace-nowrap">Enter Age:</label>
+                    <input 
+                      id="voterAgeInput" 
+                      type="number" 
+                      value="19" 
+                      min="1" 
+                      max="120"
+                      class="w-20 px-2 py-1 rounded-lg bg-white/5 border border-white/15 text-white text-xs text-center focus:outline-none focus:border-aurora-sky"
+                    />
+                    <button 
+                      id="voterCheckBtn" 
+                      class="px-3 py-1 rounded-lg bg-aurora-blue hover:bg-blue-600 text-white text-xs font-sans font-medium transition-colors"
+                    >
+                      Verify
+                    </button>
+                  </div>
+                  <div class="sm:col-span-5 text-right">
+                    <div id="voterVerdict" class="text-xs font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2.5 py-1 rounded-lg inline-block">
+                      Eligible to Vote (18+)
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3 class="text-2xl font-heading font-bold text-white">
                 Voter Eligibility Calculator
               </h3>
-              <p class="text-sm text-slate-400 leading-relaxed">
-                A simple application that checks whether a person meets the required voting age and criteria. Emphasizes clean conditional validation, user prompt handling, and instant status determination.
+              <p class="text-content-secondary text-sm leading-relaxed">
+                A simple, robust application that checks whether an individual meets statutory voting age requirements. Designed with comprehensive input sanitization, edge-case validation (non-numeric input, negative values), and structured output responses.
               </p>
-              
-              <!-- Technologies Used -->
-              <div class="flex flex-wrap gap-2 pt-2">
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">Python</span>
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">Logic & Conditions</span>
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">CLI / Web UI</span>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-white/10">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">Python</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">Control Flow</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">Input Validation</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">CLI Architecture</span>
               </div>
-            </div>
 
-            <!-- Action Links -->
-            <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-              <a href="https://github.com/kowshik008/voter-eligibility-calculator" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-white transition-colors">
-                <i data-lucide="github" class="w-4 h-4"></i>
-                <span>Repository</span>
-              </a>
-              <span class="text-xs text-slate-500 font-mono">Interactive Demo Ready</span>
-            </div>
-          </article>
-
-
-          <!-- Project 2: ATM Management System -->
-          <article class="glass-panel p-7 rounded-2xl border border-white/10 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between space-y-6">
-            <div class="space-y-4">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-mono text-brand-400 font-semibold">PROJECT / 02</span>
-                <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">BANKING SIMULATION</span>
-              </div>
-              <h3 class="text-2xl font-bold text-white group-hover:text-brand-300 transition-colors">
-                ATM Management System
-              </h3>
-              <p class="text-sm text-slate-400 leading-relaxed">
-                A basic banking simulation that demonstrates ATM operations and transaction management. Implements user authentication, account balance inquiries, fund deposits, cash withdrawals, and state tracking.
-              </p>
-              
-              <!-- Technologies Used -->
-              <div class="flex flex-wrap gap-2 pt-2">
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">Python</span>
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">OOP Concepts</span>
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">State Management</span>
+                <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-aurora-sky hover:text-white transition-colors">
+                  <i data-lucide="github" class="w-4 h-4"></i>
+                  <span>GitHub Repository</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </a>
+                <span class="text-[11px] font-mono text-content-muted">Completed &amp; Tested</span>
               </div>
             </div>
+          </div>
 
-            <!-- Action Links -->
-            <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-              <a href="https://github.com/kowshik008/atm-management-system" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-white transition-colors">
-                <i data-lucide="github" class="w-4 h-4"></i>
-                <span>Repository</span>
-              </a>
-              <span class="text-xs text-slate-500 font-mono">Core Logic Verified</span>
-            </div>
-          </article>
-
-
-          <!-- Project 3: Student Grade Calculator -->
-          <article class="glass-panel p-7 rounded-2xl border border-white/10 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between space-y-6">
+          <!-- ================= BENTO ITEM 2: ATM Management System (Span 5) ================= -->
+          <div class="lg:col-span-5 glass-card p-6 sm:p-8 tilt-card flex flex-col justify-between space-y-6 reveal">
             <div class="space-y-4">
+              
               <div class="flex items-center justify-between">
-                <span class="text-xs font-mono text-brand-400 font-semibold">PROJECT / 03</span>
-                <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">ACADEMIC TOOL</span>
+                <span class="text-xs font-mono text-aurora-violet tracking-wider">PROJECT // 02</span>
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-mono bg-aurora-violet/20 text-aurora-violet border border-aurora-violet/30">
+                  Python · Banking
+                </span>
               </div>
-              <h3 class="text-2xl font-bold text-white group-hover:text-brand-300 transition-colors">
-                Student Grade Calculator
-              </h3>
-              <p class="text-sm text-slate-400 leading-relaxed">
-                An application that calculates student grades based on academic marks. Computes total scores, percentages, GPA brackets, and assigns performance classifications with structured output.
-              </p>
-              
-              <!-- Technologies Used -->
-              <div class="flex flex-wrap gap-2 pt-2">
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">Python</span>
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">Algorithms</span>
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">Data Formatting</span>
-              </div>
-            </div>
 
-            <!-- Action Links -->
-            <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-              <a href="https://github.com/kowshik008/student-grade-calculator" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-white transition-colors">
-                <i data-lucide="github" class="w-4 h-4"></i>
-                <span>Repository</span>
-              </a>
-              <span class="text-xs text-slate-500 font-mono">Functional Script</span>
-            </div>
-          </article>
-
-
-          <!-- Project 4: ReVive AI -->
-          <article class="glass-panel p-7 rounded-2xl border border-white/10 hover:border-brand-500/40 transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between space-y-6">
-            <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-mono text-brand-400 font-semibold">PROJECT / 04</span>
-                <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">AI INNOVATION CONCEPT</span>
-              </div>
-              <h3 class="text-2xl font-bold text-white group-hover:text-brand-300 transition-colors">
-                ReVive AI
-              </h3>
-              <p class="text-sm text-slate-400 leading-relaxed">
-                An e-waste collection and recycling platform concept designed to encourage responsible electronic waste management through intelligent item classification, pickup routing, and community recycling incentives.
-              </p>
-              
-              <!-- Technologies Used -->
-              <div class="flex flex-wrap gap-2 pt-2">
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">AI Concept</span>
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">Web Architecture</span>
-                <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono">Sustainability Tech</span>
-              </div>
-            </div>
-
-            <!-- Action Links -->
-            <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-              <a href="https://github.com/kowshik008/revive-ai" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-white transition-colors">
-                <i data-lucide="github" class="w-4 h-4"></i>
-                <span>Repository / Specs</span>
-              </a>
-              <span class="text-xs text-brand-400 font-mono">Ideathon Prototype</span>
-            </div>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- 5. ACHIEVEMENTS & EXPERIENCE SECTION -->
-    <section id="achievements" class="py-24 px-6 md:px-12 border-t border-white/5">
-      <div class="max-w-7xl mx-auto space-y-16">
-        
-        <!-- Section Header -->
-        <div class="space-y-3">
-          <div class="inline-flex items-center gap-2 text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">
-            <span>04 / Milestones</span>
-          </div>
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
-            Achievements & Learning Journey
-          </h2>
-          <p class="text-slate-400 text-sm md:text-base max-w-2xl">
-            Key participations, technical events, and learning milestones achieved through proactive exploration.
-          </p>
-        </div>
-
-        <!-- 3 Milestone Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-          <!-- Card 1: Hackathons & Ideathons -->
-          <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-4">
-            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center border border-brand-500/20">
-              <i data-lucide="award" class="w-5 h-5"></i>
-            </div>
-            <h3 class="text-lg font-bold text-white">Hackathons & Ideathons</h3>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Actively participating in collegiate and developer ideathons, pitching technology-driven solutions for social challenges such as e-waste management (ReVive AI).
-            </p>
-            <div class="pt-3 border-t border-white/5 text-[11px] font-mono text-slate-400">
-              Status: Active Participant
-            </div>
-          </div>
-
-          <!-- Card 2: Technical Learning Achievements -->
-          <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-4">
-            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20">
-              <i data-lucide="book-open" class="w-5 h-5"></i>
-            </div>
-            <h3 class="text-lg font-bold text-white">Technical Learning Milestones</h3>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Completed intensive foundational modules in Python programming, algorithmic logic, responsive web development, and fundamentals of modern Generative AI architectures.
-            </p>
-            <div class="pt-3 border-t border-white/5 text-[11px] font-mono text-slate-400">
-              Focus: Python · Data Logic · AI
-            </div>
-          </div>
-
-          <!-- Card 3: Certifications & Workshops Placeholder -->
-          <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-4">
-            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
-              <i data-lucide="file-badge" class="w-5 h-5"></i>
-            </div>
-            <h3 class="text-lg font-bold text-white">Certifications & Events</h3>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Enrolled in ongoing accredited coursework at NIAT. Regularly attending technical developer webinars, workshops, and AI developer sessions.
-            </p>
-            <div class="pt-3 border-t border-white/5 text-[11px] font-mono text-emerald-400">
-              Verified Student Credential (2026–2030)
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- 6. CONTACT SECTION -->
-    <section id="contact" class="py-24 px-6 md:px-12 border-t border-white/5 bg-slate-950/60">
-      <div class="max-w-7xl mx-auto space-y-16">
-        
-        <!-- Section Header -->
-        <div class="space-y-3">
-          <div class="inline-flex items-center gap-2 text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">
-            <span>05 / Get in Touch</span>
-          </div>
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
-            Let’s Connect & Collaborate
-          </h2>
-          <p class="text-slate-400 text-sm md:text-base max-w-2xl">
-            I am always open to discussing internship opportunities, collaborative projects, technical mentorship, and AI developments.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
-          <!-- Contact Info Cards Column -->
-          <div class="lg:col-span-5 space-y-6">
-            
-            <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-5">
-              
-              <!-- Direct Email Card -->
-              <div class="flex items-start gap-4">
-                <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center flex-shrink-0 border border-brand-500/20">
-                  <i data-lucide="mail" class="w-5 h-5"></i>
+              <!-- Interactive Visual Preview: Simulated ATM Dashboard -->
+              <div class="rounded-xl glass-surface border border-white/10 bg-midnight-main/80 p-4 space-y-3 font-mono">
+                <div class="flex items-center justify-between pb-2 border-b border-white/10 text-xs">
+                  <span class="text-content-secondary">ATM Simulator</span>
+                  <span class="text-[10px] text-emerald-400 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online
+                  </span>
                 </div>
-                <div class="space-y-1 overflow-hidden">
-                  <div class="text-xs font-mono text-slate-400 uppercase">Email Address</div>
-                  <div class="text-sm font-semibold text-white break-all">kowshiksravanam6565@gmail.com</div>
-                  <button onclick="copyEmail()" id="copyBtn" class="text-xs text-brand-400 hover:text-brand-300 font-mono inline-flex items-center gap-1.5 pt-1">
-                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                    <span id="copyText">Click to copy email</span>
+                <div class="bg-black/40 p-3 rounded-lg border border-white/5 space-y-1.5">
+                  <div class="text-[10px] text-content-muted">ACCOUNT HOLDER: KOWSHIK S.</div>
+                  <div class="text-lg font-heading font-bold text-white flex items-center justify-between">
+                    <span>BALANCE:</span>
+                    <span id="atmBalanceDisplay" class="text-aurora-sky">$4,500.00</span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button id="atmWithdrawBtn" class="py-1.5 px-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-content-main text-center transition-colors">
+                    Withdraw $100
+                  </button>
+                  <button id="atmDepositBtn" class="py-1.5 px-2 rounded-lg bg-aurora-violet/30 hover:bg-aurora-violet/50 border border-aurora-violet/40 text-xs text-white text-center transition-colors">
+                    Deposit $200
                   </button>
                 </div>
               </div>
 
-              <!-- LinkedIn -->
-              <div class="flex items-start gap-4 pt-4 border-t border-white/5">
-                <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center flex-shrink-0 border border-blue-500/20">
-                  <i data-lucide="linkedin" class="w-5 h-5"></i>
+              <h3 class="text-xl sm:text-2xl font-heading font-bold text-white">
+                ATM Management System
+              </h3>
+              <p class="text-content-secondary text-sm leading-relaxed">
+                A basic banking simulation that demonstrates ATM operations and transaction management. Features PIN security verification, deposit/withdrawal calculations, overdraft prevention, and statement generation.
+              </p>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-white/10">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">Python</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">OOP</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">State Logic</span>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-aurora-violet hover:text-white transition-colors">
+                  <i data-lucide="github" class="w-4 h-4"></i>
+                  <span>GitHub Repository</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </a>
+                <span class="text-[11px] font-mono text-content-muted">Simulation</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= BENTO ITEM 3: Student Grade Calculator (Span 5) ================= -->
+          <div class="lg:col-span-5 glass-card p-6 sm:p-8 tilt-card flex flex-col justify-between space-y-6 reveal">
+            <div class="space-y-4">
+              
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-aurora-sky tracking-wider">PROJECT // 03</span>
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-mono bg-sky-500/20 text-sky-400 border border-sky-500/30">
+                  Python · Academics
+                </span>
+              </div>
+
+              <!-- Interactive Visual Preview: Grade Processor Simulation -->
+              <div class="rounded-xl glass-surface border border-white/10 bg-midnight-main/80 p-4 space-y-3 font-mono">
+                <div class="flex items-center justify-between pb-2 border-b border-white/10 text-xs">
+                  <span class="text-content-secondary">GPA Processor</span>
+                  <span id="gradeBadge" class="text-xs font-bold text-emerald-400">Grade: A+ (94%)</span>
                 </div>
-                <div class="space-y-1">
-                  <div class="text-xs font-mono text-slate-400 uppercase">LinkedIn Profile</div>
-                  <a href="https://linkedin.com/in/kowshik-sravanam-622b7942b" target="_blank" rel="noreferrer" class="text-sm font-semibold text-slate-200 hover:text-brand-400 transition-colors inline-flex items-center gap-1">
-                    <span>linkedin.com/in/kowshik-sravanam-622b7942b</span>
-                    <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
-                  </a>
+                <div class="space-y-2 text-xs">
+                  <div>
+                    <div class="flex justify-between text-[11px] text-content-secondary">
+                      <span>Python &amp; AI:</span>
+                      <span id="score1Val">95/100</span>
+                    </div>
+                    <input id="score1Range" type="range" min="40" max="100" value="95" class="w-full accent-aurora-sky h-1" />
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] text-content-secondary">
+                      <span>Discrete Math:</span>
+                      <span id="score2Val">93/100</span>
+                    </div>
+                    <input id="score2Range" type="range" min="40" max="100" value="93" class="w-full accent-aurora-violet h-1" />
+                  </div>
+                </div>
+                <div class="text-[11px] text-right text-content-muted font-mono">
+                  Computed GPA: <strong id="computedGpa" class="text-white">3.95 / 4.0</strong>
                 </div>
               </div>
 
-              <!-- GitHub -->
-              <div class="flex items-start gap-4 pt-4 border-t border-white/5">
-                <div class="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 flex items-center justify-center flex-shrink-0 border border-white/10">
-                  <i data-lucide="github" class="w-5 h-5"></i>
+              <h3 class="text-xl sm:text-2xl font-heading font-bold text-white">
+                Student Grade Calculator
+              </h3>
+              <p class="text-content-secondary text-sm leading-relaxed">
+                An application that calculates student grades based on academic marks. Computes weighted percentages, average scores, and outputs accurate grade categorizations adhering to standard academic scales.
+              </p>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-white/10">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">Python</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">Data Processing</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">GPA Logic</span>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-aurora-sky hover:text-white transition-colors">
+                  <i data-lucide="github" class="w-4 h-4"></i>
+                  <span>GitHub Repository</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </a>
+                <span class="text-[11px] font-mono text-content-muted">Completed</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= BENTO ITEM 4: ReVive AI (Span 7) ================= -->
+          <div class="lg:col-span-7 glass-card p-6 sm:p-8 tilt-card flex flex-col justify-between space-y-6 reveal">
+            <div class="space-y-4">
+              
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-aurora-violet tracking-wider">PROJECT // 04</span>
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-mono bg-gradient-to-r from-aurora-blue/20 to-aurora-violet/20 text-aurora-sky border border-aurora-sky/30">
+                  AI Concept · Circular Economy
+                </span>
+              </div>
+
+              <!-- Interactive Visual Preview: ReVive AI Scanner Simulation -->
+              <div class="rounded-xl glass-surface border border-white/10 bg-midnight-main/80 p-4 space-y-3 font-mono">
+                <div class="flex items-center justify-between pb-2 border-b border-white/10 text-xs">
+                  <span class="text-aurora-sky flex items-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ReVive AI Computer Vision Scanner
+                  </span>
+                  <span class="text-[10px] text-content-secondary">Confidence: 98.4%</span>
                 </div>
-                <div class="space-y-1">
-                  <div class="text-xs font-mono text-slate-400 uppercase">GitHub Profile</div>
-                  <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" class="text-sm font-semibold text-slate-200 hover:text-brand-400 transition-colors inline-flex items-center gap-1">
-                    <span>github.com/kowshik008</span>
-                    <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
-                  </a>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  <div class="p-2.5 rounded-lg bg-white/5 border border-white/5">
+                    <div class="text-[10px] text-content-muted uppercase">Detected Device</div>
+                    <div class="text-xs font-bold text-white mt-0.5">Lithium PCB Unit</div>
+                    <div class="text-[10px] text-emerald-400 mt-1">Hazard Grade: A</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-white/5 border border-white/5">
+                    <div class="text-[10px] text-content-muted uppercase">Recyclable Yield</div>
+                    <div class="text-xs font-bold text-aurora-sky mt-0.5">92% Elements</div>
+                    <div class="text-[10px] text-content-secondary mt-1">Au, Cu, Silicates</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-white/5 border border-white/5">
+                    <div class="text-[10px] text-content-muted uppercase">Incentive Credit</div>
+                    <div class="text-xs font-bold text-aurora-violet mt-0.5">340 GreenPts</div>
+                    <div class="text-[10px] text-emerald-400 mt-1">Ready for pickup</div>
+                  </div>
                 </div>
+              </div>
+
+              <h3 class="text-2xl font-heading font-bold text-white">
+                ReVive AI — E-Waste Management Platform
+              </h3>
+              <p class="text-content-secondary text-sm leading-relaxed">
+                An e-waste collection and recycling platform concept designed to encourage responsible electronic waste management. Envisions AI image classification to evaluate discarded components, calculate recycled metal yield, and reward eco-conscious contributors.
+              </p>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-white/10">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">AI Architecture</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">Generative AI</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">Sustainability</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 text-content-secondary border border-white/10">Platform Concept</span>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-aurora-violet hover:text-white transition-colors">
+                  <i data-lucide="github" class="w-4 h-4"></i>
+                  <span>GitHub Repository Placeholder</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </a>
+                <span class="text-[11px] font-mono text-content-muted">Concept Phase</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================== 5. ACHIEVEMENTS & EXPERIENCE ==================== -->
+    <section id="achievements" class="py-24 px-6 md:px-12 relative">
+      <div class="max-w-7xl mx-auto space-y-12">
+        
+        <!-- Section Header -->
+        <div class="text-left space-y-2 reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-aurora-sky bg-aurora-sky/10 border border-aurora-sky/20">
+            <i data-lucide="award" class="w-3.5 h-3.5"></i>
+            <span>04 / RECOGNITION &amp; JOURNEY</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-white">
+            Achievements &amp; <span class="text-aurora-gradient">Experience.</span>
+          </h2>
+          <p class="text-content-secondary text-sm sm:text-base max-w-2xl font-body">
+            Milestones from my first year of computer science, competitive hackathons, technical learning achievements, and ongoing certifications.
+          </p>
+        </div>
+
+        <!-- 4 Glassmorphic Achievement Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Milestone 1: Hackathons -->
+          <div class="glass-card p-6 flex flex-col justify-between space-y-4 reveal">
+            <div class="space-y-3">
+              <div class="w-11 h-11 rounded-xl bg-aurora-blue/20 border border-aurora-blue/30 flex items-center justify-center text-aurora-sky">
+                <i data-lucide="terminal" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-heading font-bold text-base text-white">Hackathon Participation</h3>
+              <p class="text-content-secondary text-xs leading-relaxed">
+                Active participant in college-level hackathons. Collaborated in rapid sprint teams to ideate and build functional software solutions within short deadlines.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-white/10 text-[11px] font-mono text-aurora-sky">
+              First Year · NIAT
+            </div>
+          </div>
+
+          <!-- Milestone 2: Ideathons -->
+          <div class="glass-card p-6 flex flex-col justify-between space-y-4 reveal">
+            <div class="space-y-3">
+              <div class="w-11 h-11 rounded-xl bg-aurora-violet/20 border border-aurora-violet/30 flex items-center justify-center text-aurora-violet">
+                <i data-lucide="lightbulb" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-heading font-bold text-base text-white">Ideathon Participation</h3>
+              <p class="text-content-secondary text-xs leading-relaxed">
+                Pitched technological ideas addressing sustainability and automation challenges, including early conceptual design for AI-driven platforms.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-white/10 text-[11px] font-mono text-aurora-violet">
+              Ideation &amp; System Design
+            </div>
+          </div>
+
+          <!-- Milestone 3: Learning Milestones -->
+          <div class="glass-card p-6 flex flex-col justify-between space-y-4 reveal">
+            <div class="space-y-3">
+              <div class="w-11 h-11 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                <i data-lucide="code" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-heading font-bold text-base text-white">Technical Learning</h3>
+              <p class="text-content-secondary text-xs leading-relaxed">
+                Mastered core Python programming constructs, basic data structures, object-oriented concepts, and fundamentals of modern web architecture.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-white/10 text-[11px] font-mono text-sky-400">
+              Python &amp; Frontend Foundation
+            </div>
+          </div>
+
+          <!-- Milestone 4: Certifications & Workshops Placeholder -->
+          <div class="glass-card p-6 flex flex-col justify-between space-y-4 reveal">
+            <div class="space-y-3">
+              <div class="w-11 h-11 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-heading font-bold text-base text-white">Workshops &amp; Seminars</h3>
+              <p class="text-content-secondary text-xs leading-relaxed">
+                Enrolled in foundational technology workshops covering emerging Artificial Intelligence topics and industry software practices.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-white/10 text-[11px] font-mono text-emerald-400">
+              Ongoing Certifications
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================== 6. CONTACT SECTION ==================== -->
+    <section id="contact" class="py-24 px-6 md:px-12 relative">
+      <div class="max-w-7xl mx-auto space-y-12">
+        
+        <!-- Section Header -->
+        <div class="text-left space-y-2 reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-aurora-violet bg-aurora-violet/10 border border-aurora-violet/20">
+            <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+            <span>05 / GET IN TOUCH</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-white">
+            Let's Connect &amp; <span class="text-aurora-gradient">Collaborate.</span>
+          </h2>
+          <p class="text-content-secondary text-sm sm:text-base max-w-2xl font-body">
+            I am actively open to internship opportunities, student research collaborations, hackathon teams, and mentorship discussions.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          <!-- Left Column: Contact Details & 1-Click Copy -->
+          <div class="lg:col-span-5 space-y-6 reveal">
+            
+            <div class="glass-card p-6 sm:p-8 space-y-6">
+              <h3 class="text-xl font-heading font-bold text-white">
+                Contact Information
+              </h3>
+              <p class="text-content-secondary text-sm leading-relaxed">
+                Feel free to reach out via email or connect with me through my professional social profiles. I respond promptly!
+              </p>
+
+              <!-- 1-Click Email Copy Block -->
+              <div class="space-y-2">
+                <div class="text-xs font-mono text-aurora-sky uppercase">Direct Email</div>
+                <div 
+                  id="emailCopyBox" 
+                  onclick="copyEmail()" 
+                  class="group flex items-center justify-between p-3.5 rounded-xl glass-surface border border-white/10 hover:border-aurora-sky/50 cursor-pointer transition-all bg-white/5"
+                >
+                  <div class="flex items-center gap-3 truncate">
+                    <i data-lucide="mail" class="w-4 h-4 text-aurora-sky shrink-0"></i>
+                    <span class="text-xs sm:text-sm font-mono text-white truncate">kowshiksravanam6565@gmail.com</span>
+                  </div>
+                  <span id="copyStatusText" class="text-[11px] font-mono text-aurora-sky group-hover:text-white shrink-0 ml-2">
+                    Copy 📋
+                  </span>
+                </div>
+              </div>
+
+              <!-- Professional Links -->
+              <div class="space-y-3 pt-2">
+                <div class="text-xs font-mono text-aurora-violet uppercase">Professional Profiles</div>
+                
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/in/kowshik-sravanam-622b7942b" target="_blank" rel="noreferrer" class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 hover:border-aurora-sky/50 text-white transition-colors">
+                  <div class="flex items-center gap-3">
+                    <i data-lucide="linkedin" class="w-4 h-4 text-aurora-sky"></i>
+                    <span class="text-xs font-medium">linkedin.com/in/kowshik-sravanam-622b7942b</span>
+                  </div>
+                  <i data-lucide="arrow-up-right" class="w-4 h-4 text-content-secondary"></i>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 hover:border-aurora-violet/50 text-white transition-colors">
+                  <div class="flex items-center gap-3">
+                    <i data-lucide="github" class="w-4 h-4 text-aurora-violet"></i>
+                    <span class="text-xs font-medium">github.com/kowshik008</span>
+                  </div>
+                  <i data-lucide="arrow-up-right" class="w-4 h-4 text-content-secondary"></i>
+                </a>
               </div>
 
             </div>
 
-            <!-- Internship Opportunity Banner -->
-            <div class="p-5 rounded-2xl bg-brand-500/10 border border-brand-500/20 text-xs space-y-2">
-              <div class="font-bold text-brand-300 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                <span>Open for Technical Internships</span>
+            <!-- Internship Invitation Callout -->
+            <div class="p-6 rounded-2xl glass-surface border border-aurora-blue/30 bg-aurora-blue/10 space-y-2">
+              <div class="flex items-center gap-2 text-aurora-sky font-heading font-bold text-sm">
+                <i data-lucide="briefcase" class="w-4 h-4"></i>
+                <span>Open for Internships</span>
               </div>
-              <p class="text-slate-300 leading-relaxed">
-                Seeking summer/winter internship opportunities and entry-level developer roles where I can contribute to real software projects while rapidly expanding my technical skill set.
+              <p class="text-xs text-content-secondary leading-relaxed">
+                Seeking summer &amp; semester internship roles in software development, AI tooling, and Python backend engineering. Ready to contribute with passion and dedication.
               </p>
             </div>
 
           </div>
 
-          <!-- Interactive Contact Form -->
-          <div class="lg:col-span-7">
-            <div class="glass-panel p-8 rounded-2xl border border-white/10">
-              <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-5">
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div class="space-y-1.5">
-                    <label for="name" class="text-xs font-medium text-slate-300">Your Name *</label>
-                    <input 
-                      type="text" 
-                      id="name" 
-                      required 
-                      placeholder="e.g. Satya Nadella"
-                      class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-brand-400 transition-colors"
-                    />
-                  </div>
+          <!-- Right Column: Glassmorphism Contact Form -->
+          <div class="lg:col-span-7 glass-card p-6 sm:p-8 reveal">
+            <h3 class="text-xl font-heading font-bold text-white mb-2">Send a Message</h3>
+            <p class="text-content-secondary text-sm mb-6">
+              Have an idea, project collaboration, or opportunity? Drop a note below.
+            </p>
 
-                  <div class="space-y-1.5">
-                    <label for="email" class="text-xs font-medium text-slate-300">Your Email *</label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      required 
-                      placeholder="e.g. satya@microsoft.com"
-                      class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-brand-400 transition-colors"
-                    />
-                  </div>
-                </div>
-
+            <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="space-y-1.5">
-                  <label for="subject" class="text-xs font-medium text-slate-300">Subject *</label>
+                  <label for="name" class="block text-xs font-mono text-content-secondary">Your Name</label>
                   <input 
                     type="text" 
-                    id="subject" 
+                    id="name" 
                     required 
-                    placeholder="Internship Opportunity / Project Collaboration"
-                    class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-brand-400 transition-colors"
+                    placeholder="e.g. Satya Nadella"
+                    class="w-full px-4 py-3 rounded-xl bg-midnight-main/80 border border-white/10 focus:border-aurora-sky focus:outline-none text-sm text-white placeholder-content-muted transition-colors"
                   />
                 </div>
-
                 <div class="space-y-1.5">
-                  <label for="message" class="text-xs font-medium text-slate-300">Message *</label>
-                  <textarea 
-                    id="message" 
-                    rows="4" 
+                  <label for="email" class="block text-xs font-mono text-content-secondary">Your Email</label>
+                  <input 
+                    type="email" 
+                    id="email" 
                     required 
-                    placeholder="Hello Kowshik, I saw your portfolio and would like to discuss..."
-                    class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-brand-400 transition-colors resize-none"
-                  ></textarea>
+                    placeholder="you@company.com"
+                    class="w-full px-4 py-3 rounded-xl bg-midnight-main/80 border border-white/10 focus:border-aurora-sky focus:outline-none text-sm text-white placeholder-content-muted transition-colors"
+                  />
                 </div>
+              </div>
 
-                <button 
-                  type="submit" 
-                  id="submitBtn"
-                  class="w-full py-3.5 px-6 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-600 hover:to-indigo-700 shadow-lg shadow-brand-500/20 transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5"
-                >
-                  <i data-lucide="send" class="w-4 h-4"></i>
-                  <span>Send Message</span>
-                </button>
+              <div class="space-y-1.5">
+                <label for="subject" class="block text-xs font-mono text-content-secondary">Subject</label>
+                <input 
+                  type="text" 
+                  id="subject" 
+                  required 
+                  placeholder="Internship / Collaboration / Project"
+                  class="w-full px-4 py-3 rounded-xl bg-midnight-main/80 border border-white/10 focus:border-aurora-sky focus:outline-none text-sm text-white placeholder-content-muted transition-colors"
+                />
+              </div>
 
-                <div id="formFeedback" class="hidden text-xs text-center p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                  Thank you! Your message has been prepared in your email client.
-                </div>
+              <div class="space-y-1.5">
+                <label for="message" class="block text-xs font-mono text-content-secondary">Message</label>
+                <textarea 
+                  id="message" 
+                  rows="4" 
+                  required 
+                  placeholder="Tell me about the project, role, or idea..."
+                  class="w-full px-4 py-3 rounded-xl bg-midnight-main/80 border border-white/10 focus:border-aurora-sky focus:outline-none text-sm text-white placeholder-content-muted transition-colors resize-none"
+                ></textarea>
+              </div>
 
-              </form>
-            </div>
+              <button 
+                type="submit" 
+                class="magnetic-btn w-full py-3.5 px-6 rounded-xl font-heading font-bold text-sm text-white bg-gradient-to-r from-aurora-blue to-aurora-violet hover:from-blue-600 hover:to-indigo-600 shadow-aurora-glow hover:scale-[1.01] transition-all flex items-center justify-center gap-2"
+              >
+                <i data-lucide="send" class="w-4 h-4"></i>
+                <span>Send Message</span>
+              </button>
+
+              <!-- Feedback message -->
+              <div id="formFeedback" class="hidden p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs text-center font-mono">
+                Message prepared! Launching your default email client...
+              </div>
+            </form>
           </div>
 
         </div>
@@ -949,135 +1380,309 @@
 
   </main>
 
-
   <!-- ==================== FOOTER ==================== -->
-  <footer class="py-12 px-6 md:px-12 border-t border-white/10 bg-slate-950 text-slate-400 text-xs">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+  <footer class="relative z-10 border-t border-white/10 py-12 px-6 md:px-12 bg-midnight-main/90 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-content-secondary">
       
       <div class="flex items-center gap-3">
-        <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-        <span>© 2026 Kowshik Sravanam. Designed with Precision & Purpose.</span>
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-aurora-blue to-aurora-violet flex items-center justify-center text-white font-heading font-bold text-xs">
+          KS
+        </div>
+        <span>© 2026 Kowshik Sravanam. Built with modern web engineering.</span>
       </div>
 
-      <div class="flex items-center gap-6">
+      <div class="flex items-center gap-6 font-mono text-xs">
         <a href="https://linkedin.com/in/kowshik-sravanam-622b7942b" target="_blank" rel="noreferrer" class="hover:text-white transition-colors">LinkedIn</a>
         <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" class="hover:text-white transition-colors">GitHub</a>
         <a href="mailto:kowshiksravanam6565@gmail.com" class="hover:text-white transition-colors">Email</a>
-        <a href="#home" class="hover:text-brand-400 transition-colors flex items-center gap-1">
-          <span>Back to Top</span>
-          <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
-        </a>
+        <a href="#home" class="hover:text-aurora-sky transition-colors">Back to top ↑</a>
       </div>
 
     </div>
   </footer>
 
-
-  <!-- ==================== SCRIPTS ==================== -->
+  <!-- ==================== INTERACTION SCRIPTS ==================== -->
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
 
-    // Scroll Reading Progress Bar
+    // 1. Reading Progress Bar
     window.addEventListener('scroll', () => {
-      const progressBar = document.getElementById('progressBar');
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (progressBar && maxScroll > 0) {
-        const percentage = (window.scrollY / maxScroll) * 100;
-        progressBar.style.width = percentage + '%';
-      }
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progressBar').style.width = scrolled + '%';
     }, { passive: true });
 
-    // Navbar Scroll Shadow
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 30) {
-        navbar.classList.add('shadow-xl', 'bg-dark-bg/90');
-      } else {
-        navbar.classList.remove('shadow-xl', 'bg-dark-bg/90');
-      }
-    }, { passive: true });
-
-    // Active Section Tracking in Navigation
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    window.addEventListener('scroll', () => {
-      let currentSection = '';
-      sections.forEach(sec => {
-        const top = sec.offsetTop - 120;
-        if (window.scrollY >= top) {
-          currentSection = sec.getAttribute('id');
-        }
-      });
-      navLinks.forEach(link => {
-        link.classList.remove('text-brand-400', 'bg-white/10');
-        if (link.getAttribute('href') === `#${currentSection}`) {
-          link.classList.add('text-brand-400', 'bg-white/10');
-        }
-      });
-    }, { passive: true });
-
-    // Mobile Navigation Drawer Toggle
-    const mobileBtn = document.getElementById('mobileMenuBtn');
+    // 2. Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    mobileBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+    const menuOpenIcon = document.getElementById('menuOpenIcon');
+    const menuCloseIcon = document.getElementById('menuCloseIcon');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      if (isOpen) {
+        mobileMenu.classList.add('hidden');
+        menuOpenIcon.classList.remove('hidden');
+        menuCloseIcon.classList.add('hidden');
+      } else {
+        mobileMenu.classList.remove('hidden');
+        menuOpenIcon.classList.add('hidden');
+        menuCloseIcon.classList.remove('hidden');
+      }
     });
+
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
       link.addEventListener('click', () => {
         mobileMenu.classList.add('hidden');
+        menuOpenIcon.classList.remove('hidden');
+        menuCloseIcon.classList.add('hidden');
       });
     });
 
-    // Dark / Light Mode Switcher
-    const themeToggle = document.getElementById('themeToggle');
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
+    // 3. Active Navigation Link on Scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link-aurora');
 
-    function setTheme(isDark) {
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-        document.documentElement.classList.remove('light');
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
-        localStorage.setItem('theme', 'dark');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      const scrollPosition = window.pageYOffset + 200;
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-nav') === current) {
+          link.classList.add('active');
+        }
+      });
+    }, { passive: true });
+
+    // 4. Subtle Floating Particle Canvas System
+    (function initParticles() {
+      const canvas = document.getElementById('particleCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particleCount = 35;
+      const particles = [];
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.6 + 0.6,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          color: Math.random() > 0.5 ? 'rgba(56, 189, 248, ' : 'rgba(139, 92, 246, ',
+          alpha: Math.random() * 0.4 + 0.15
+        });
+      }
+
+      function render() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0) p.x = width;
+          if (p.x > width) p.x = 0;
+          if (p.y < 0) p.y = height;
+          if (p.y > height) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color + p.alpha + ')';
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = '#38BDF8';
+          ctx.fill();
+        });
+        requestAnimationFrame(render);
+      }
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReduced) {
+        render();
+      }
+    })();
+
+    // 5. Spotlight Effect & 3D Tilt on Desktop
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    const cards = document.querySelectorAll('.glass-card');
+
+    if (!isTouchDevice) {
+      cards.forEach(card => {
+        // Spotlight cursor tracking
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+
+          // 3D tilt calculation if element has .tilt-card
+          if (card.classList.contains('tilt-card')) {
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -5;
+            const rotateY = ((x - centerX) / centerX) * 5;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          if (card.classList.contains('tilt-card')) {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+          }
+        });
+      });
+
+      // 6. Magnetic Hover on Buttons
+      const magneticBtns = document.querySelectorAll('.magnetic-btn');
+      magneticBtns.forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          btn.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0px, 0px)';
+        });
+      });
+    }
+
+    // 7. Scroll-Triggered Reveal Animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.12
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // 8. Interactive Project Demos
+
+    // Demo 1: Voter Eligibility
+    const voterCheckBtn = document.getElementById('voterCheckBtn');
+    const voterAgeInput = document.getElementById('voterAgeInput');
+    const voterVerdict = document.getElementById('voterVerdict');
+
+    if (voterCheckBtn && voterAgeInput && voterVerdict) {
+      voterCheckBtn.addEventListener('click', () => {
+        const age = parseInt(voterAgeInput.value, 10);
+        if (isNaN(age) || age <= 0) {
+          voterVerdict.className = 'text-xs font-medium text-rose-400 bg-rose-950/40 border border-rose-500/30 px-2.5 py-1 rounded-lg inline-block';
+          voterVerdict.textContent = 'Invalid input: age > 0';
+        } else if (age >= 18) {
+          voterVerdict.className = 'text-xs font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2.5 py-1 rounded-lg inline-block';
+          voterVerdict.textContent = `Eligible to Vote (${age} >= 18)`;
+        } else {
+          voterVerdict.className = 'text-xs font-medium text-amber-400 bg-amber-950/40 border border-amber-500/30 px-2.5 py-1 rounded-lg inline-block';
+          voterVerdict.textContent = `Not Eligible (${18 - age} yrs remaining)`;
+        }
+      });
+    }
+
+    // Demo 2: ATM Simulation
+    let balance = 4500;
+    const atmBalanceDisplay = document.getElementById('atmBalanceDisplay');
+    const atmWithdrawBtn = document.getElementById('atmWithdrawBtn');
+    const atmDepositBtn = document.getElementById('atmDepositBtn');
+
+    if (atmBalanceDisplay && atmWithdrawBtn && atmDepositBtn) {
+      atmWithdrawBtn.addEventListener('click', () => {
+        if (balance >= 100) {
+          balance -= 100;
+          atmBalanceDisplay.textContent = `$${balance.toLocaleString()}.00`;
+        } else {
+          alert('Insufficient balance');
+        }
+      });
+
+      atmDepositBtn.addEventListener('click', () => {
+        balance += 200;
+        atmBalanceDisplay.textContent = `$${balance.toLocaleString()}.00`;
+      });
+    }
+
+    // Demo 3: Student Grade Calculator
+    const score1Range = document.getElementById('score1Range');
+    const score2Range = document.getElementById('score2Range');
+    const score1Val = document.getElementById('score1Val');
+    const score2Val = document.getElementById('score2Val');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const computedGpa = document.getElementById('computedGpa');
+
+    function updateGrade() {
+      const s1 = parseInt(score1Range.value, 10);
+      const s2 = parseInt(score2Range.value, 10);
+      score1Val.textContent = `${s1}/100`;
+      score2Val.textContent = `${s2}/100`;
+
+      const avg = Math.round((s1 + s2) / 2);
+      const gpa = ((avg / 100) * 4).toFixed(2);
+      computedGpa.textContent = `${gpa} / 4.0`;
+
+      if (avg >= 90) {
+        gradeBadge.className = 'text-xs font-bold text-emerald-400';
+        gradeBadge.textContent = `Grade: A+ (${avg}%)`;
+      } else if (avg >= 80) {
+        gradeBadge.className = 'text-xs font-bold text-aurora-sky';
+        gradeBadge.textContent = `Grade: A (${avg}%)`;
+      } else if (avg >= 70) {
+        gradeBadge.className = 'text-xs font-bold text-amber-400';
+        gradeBadge.textContent = `Grade: B (${avg}%)`;
       } else {
-        document.documentElement.classList.remove('dark');
-        document.documentElement.classList.add('light');
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
-        localStorage.setItem('theme', 'light');
+        gradeBadge.className = 'text-xs font-bold text-rose-400';
+        gradeBadge.textContent = `Grade: C (${avg}%)`;
       }
     }
 
-    // Load initial theme from localStorage or default to dark
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-      setTheme(false);
-    } else {
-      setTheme(true);
+    if (score1Range && score2Range) {
+      score1Range.addEventListener('input', updateGrade);
+      score2Range.addEventListener('input', updateGrade);
     }
 
-    themeToggle.addEventListener('click', () => {
-      const isCurrentlyDark = document.documentElement.classList.contains('dark');
-      setTheme(!isCurrentlyDark);
-    });
-
-    // 1-Click Copy Email Functionality
+    // 9. 1-Click Copy Email Functionality
     function copyEmail() {
       const email = 'kowshiksravanam6565@gmail.com';
-      const copyText = document.getElementById('copyText');
+      const statusText = document.getElementById('copyStatusText');
       navigator.clipboard.writeText(email).then(() => {
-        copyText.textContent = 'Copied to Clipboard! ✓';
+        statusText.textContent = 'Copied! ✓';
         setTimeout(() => {
-          copyText.textContent = 'Click to copy email';
+          statusText.textContent = 'Copy 📋';
         }, 2200);
       }).catch(() => {
         window.location.href = `mailto:${email}`;
       });
     }
 
-    // Contact Form Handler
+    // 10. Contact Form Handler
     function handleContactSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('name').value;
