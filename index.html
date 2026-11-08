@@ -877,6 +877,8 @@
 
     <!-- ==================== 4. ASYMMETRICAL BENTO GRID PROJECTS ==================== -->
     <section id="projects" class="py-24 px-6 md:px-12 relative">
+      <!-- Dual anchor for #work and #projects navigation compatibility -->
+      <div id="work" class="absolute -top-28"></div>
       <div class="max-w-7xl mx-auto space-y-12">
         
         <!-- Section Header -->
@@ -1008,12 +1010,15 @@
                   </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
-                  <button id="atmWithdrawBtn" class="py-1.5 px-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-content-main text-center transition-colors">
+                  <button id="atmWithdrawBtn" data-cursor="WITHDRAW" class="py-1.5 px-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-content-main text-center transition-colors">
                     Withdraw $100
                   </button>
-                  <button id="atmDepositBtn" class="py-1.5 px-2 rounded-lg bg-aurora-violet/30 hover:bg-aurora-violet/50 border border-aurora-violet/40 text-xs text-white text-center transition-colors">
+                  <button id="atmDepositBtn" data-cursor="DEPOSIT" class="py-1.5 px-2 rounded-lg bg-aurora-violet/30 hover:bg-aurora-violet/50 border border-aurora-violet/40 text-xs text-white text-center transition-colors">
                     Deposit $200
                   </button>
+                </div>
+                <div id="atmStatusMsg" class="text-[10px] text-center text-emerald-400 font-mono py-0.5 min-h-[16px]">
+                  Ready for transaction
                 </div>
               </div>
 
@@ -1124,24 +1129,29 @@
                   <span class="text-aurora-sky flex items-center gap-1.5">
                     <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ReVive AI Computer Vision Scanner
                   </span>
-                  <span class="text-[10px] text-content-secondary">Confidence: 98.4%</span>
+                  <div class="flex items-center gap-2">
+                    <span id="reviveConfidence" class="text-[10px] text-content-secondary">Confidence: 98.4%</span>
+                    <button id="reviveScanBtn" data-cursor="SCAN ITEM" class="px-2 py-0.5 rounded bg-aurora-violet/30 hover:bg-aurora-violet/50 border border-aurora-violet/40 text-[10px] text-white transition-colors flex items-center gap-1">
+                      <i data-lucide="refresh-cw" class="w-2.5 h-2.5"></i> Next Scan
+                    </button>
+                  </div>
                 </div>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                   <div class="p-2.5 rounded-lg bg-white/5 border border-white/5">
                     <div class="text-[10px] text-content-muted uppercase">Detected Device</div>
-                    <div class="text-xs font-bold text-white mt-0.5">Lithium PCB Unit</div>
-                    <div class="text-[10px] text-emerald-400 mt-1">Hazard Grade: A</div>
+                    <div id="reviveDevice" class="text-xs font-bold text-white mt-0.5">Lithium PCB Unit</div>
+                    <div id="reviveHazard" class="text-[10px] text-emerald-400 mt-1">Hazard Grade: A</div>
                   </div>
                   <div class="p-2.5 rounded-lg bg-white/5 border border-white/5">
                     <div class="text-[10px] text-content-muted uppercase">Recyclable Yield</div>
-                    <div class="text-xs font-bold text-aurora-sky mt-0.5">92% Elements</div>
-                    <div class="text-[10px] text-content-secondary mt-1">Au, Cu, Silicates</div>
+                    <div id="reviveYield" class="text-xs font-bold text-aurora-sky mt-0.5">92% Elements</div>
+                    <div id="reviveElements" class="text-[10px] text-content-secondary mt-1">Au, Cu, Silicates</div>
                   </div>
                   <div class="p-2.5 rounded-lg bg-white/5 border border-white/5">
                     <div class="text-[10px] text-content-muted uppercase">Incentive Credit</div>
-                    <div class="text-xs font-bold text-aurora-violet mt-0.5">340 GreenPts</div>
-                    <div class="text-[10px] text-emerald-400 mt-1">Ready for pickup</div>
+                    <div id="reviveCredit" class="text-xs font-bold text-aurora-violet mt-0.5">340 GreenPts</div>
+                    <div id="reviveStatus" class="text-[10px] text-emerald-400 mt-1">Ready for pickup</div>
                   </div>
                 </div>
               </div>
@@ -1914,20 +1924,62 @@
     const atmBalanceDisplay = document.getElementById('atmBalanceDisplay');
     const atmWithdrawBtn = document.getElementById('atmWithdrawBtn');
     const atmDepositBtn = document.getElementById('atmDepositBtn');
+    const atmStatusMsg = document.getElementById('atmStatusMsg');
 
     if (atmBalanceDisplay && atmWithdrawBtn && atmDepositBtn) {
       atmWithdrawBtn.addEventListener('click', () => {
         if (balance >= 100) {
           balance -= 100;
           atmBalanceDisplay.textContent = `$${balance.toLocaleString()}.00`;
+          if (atmStatusMsg) {
+            atmStatusMsg.className = 'text-[10px] text-center text-amber-300 font-mono py-0.5 min-h-[16px] transition-colors';
+            atmStatusMsg.textContent = '✓ Dispensed $100.00 cash';
+          }
         } else {
-          alert('Insufficient balance');
+          if (atmStatusMsg) {
+            atmStatusMsg.className = 'text-[10px] text-center text-rose-400 font-mono py-0.5 min-h-[16px] transition-colors';
+            atmStatusMsg.textContent = '⚠️ Insufficient funds: min $100 required';
+          }
         }
       });
 
       atmDepositBtn.addEventListener('click', () => {
         balance += 200;
         atmBalanceDisplay.textContent = `$${balance.toLocaleString()}.00`;
+        if (atmStatusMsg) {
+          atmStatusMsg.className = 'text-[10px] text-center text-emerald-400 font-mono py-0.5 min-h-[16px] transition-colors';
+          atmStatusMsg.textContent = '✓ Deposited $200.00 successfully';
+        }
+      });
+    }
+
+    // Demo 4: ReVive AI Interactive Scanner
+    const reviveScanBtn = document.getElementById('reviveScanBtn');
+    const reviveDevice = document.getElementById('reviveDevice');
+    const reviveHazard = document.getElementById('reviveHazard');
+    const reviveYield = document.getElementById('reviveYield');
+    const reviveElements = document.getElementById('reviveElements');
+    const reviveCredit = document.getElementById('reviveCredit');
+    const reviveConfidence = document.getElementById('reviveConfidence');
+
+    const sampleScans = [
+      { device: "Lithium PCB Unit", hazard: "Hazard Grade: A", yield: "92% Elements", elements: "Au, Cu, Silicates", credit: "340 GreenPts", conf: "98.4%" },
+      { device: "OLED Panel Substrate", hazard: "Hazard Grade: Low", yield: "78% Elements", elements: "Indium, Glass, Ag", credit: "210 GreenPts", conf: "96.7%" },
+      { device: "Smartphone Li-Ion Cell", hazard: "Hazard Grade: Critical", yield: "85% Elements", elements: "Cobalt, Nickel, Li", credit: "480 GreenPts", conf: "99.1%" },
+      { device: "High-Density RAM Stick", hazard: "Hazard Grade: Min", yield: "94% Elements", elements: "Gold Plating, Silica", credit: "290 GreenPts", conf: "97.8%" }
+    ];
+    let scanIndex = 0;
+
+    if (reviveScanBtn && reviveDevice) {
+      reviveScanBtn.addEventListener('click', () => {
+        scanIndex = (scanIndex + 1) % sampleScans.length;
+        const cur = sampleScans[scanIndex];
+        reviveDevice.textContent = cur.device;
+        reviveHazard.textContent = cur.hazard;
+        reviveYield.textContent = cur.yield;
+        reviveElements.textContent = cur.elements;
+        reviveCredit.textContent = cur.credit;
+        reviveConfidence.textContent = `Confidence: ${cur.conf}`;
       });
     }
 

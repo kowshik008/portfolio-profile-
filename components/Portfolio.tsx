@@ -306,6 +306,7 @@ export default function Portfolio() {
 
         {/* PROJECTS SECTION */}
         <section className="section work" id="projects">
+          <div id="work" style={{ position: "relative", top: "-110px" }} />
           <div className="section-index">03 / FEATURED PROJECTS</div>
           <h2 className="section-heading">APPLIED CODE &amp;<br /><em>PRACTICAL BUILDS.</em></h2>
           <p className="section-intro">Software simulations, utility applications, and AI architectural concepts developed during my ongoing technical journey.</p>
