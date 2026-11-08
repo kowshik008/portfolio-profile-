@@ -315,18 +315,70 @@
         transform: none !important;
       }
     }
+
+    /* Custom Unique Cursor on Desktop */
+    @media (hover: hover) and (pointer: fine) {
+      body, a, button, input, select, textarea, label, [role="button"] {
+        cursor: none !important;
+      }
+      .custom-cursor-element {
+        display: block !important;
+      }
+    }
+
+    @media (pointer: coarse) {
+      .custom-cursor-element {
+        display: none !important;
+      }
+    }
+
+    /* Tactile Click Shockwave Ripple */
+    .cursor-ripple {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(56, 189, 248, 0.85);
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 98;
+      transform: translate(-50%, -50%) scale(1);
+      animation: rippleExpand 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes rippleExpand {
+      0% {
+        transform: translate(-50%, -50%) scale(0.4);
+        opacity: 0.95;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(5.5);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 
 <body class="bg-midnight-main text-content-main font-body antialiased selection:bg-aurora-blue selection:text-white transition-colors duration-300 relative overflow-x-hidden">
+
+  <!-- ==================== UNIQUE FLUID AURORA CURSOR ==================== -->
+  <div id="cursorDot" class="custom-cursor-element fixed top-0 left-0 w-2 h-2 rounded-full bg-aurora-sky shadow-[0_0_12px_#38BDF8,0_0_24px_#2563EB] pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2 will-change-transform opacity-0 transition-opacity duration-300 hidden"></div>
+  <div id="cursorRing" class="custom-cursor-element fixed top-0 left-0 w-9 h-9 rounded-full border border-aurora-violet/70 bg-aurora-sky/5 backdrop-blur-[2px] shadow-[0_0_15px_rgba(56,189,248,0.25)] pointer-events-none z-[99] -translate-x-1/2 -translate-y-1/2 transition-[width,height,border-color,background-color,border-radius,box-shadow] duration-200 ease-out will-change-transform opacity-0 hidden"></div>
+  <div id="cursorLabel" class="custom-cursor-element fixed top-0 left-0 px-2.5 py-1 rounded-lg text-[10px] font-mono tracking-wider text-white bg-midnight-card/90 border border-white/20 backdrop-blur-md font-semibold pointer-events-none z-[101] opacity-0 transition-opacity duration-200 -translate-y-7 translate-x-4 shadow-xl will-change-transform hidden">EXPLORE</div>
 
   <!-- ==================== BACKGROUND AURORA & PARTICLES ==================== -->
   <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
     <!-- Subtle Noise Texture -->
     <div class="absolute inset-0 bg-noise z-10 opacity-70"></div>
     
-    <!-- Floating Particle Canvas -->
-    <canvas id="particleCanvas" class="absolute inset-0 z-[2] opacity-60"></canvas>
+    <!-- Interactive Background Grid Spotlight responding to cursor -->
+    <div id="cursorGridSpotlight" class="absolute inset-0 z-[1] opacity-40 transition-opacity duration-500" style="background-image: linear-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.08) 1px, transparent 1px); background-size: 45px 45px; mask-image: radial-gradient(circle 380px at var(--grid-cx, 50%) var(--grid-cy, 50%), black 25%, transparent 80%); -webkit-mask-image: radial-gradient(circle 380px at var(--grid-cx, 50%) var(--grid-cy, 50%), black 25%, transparent 80%);"></div>
+
+    <!-- Fluid Aurora Glow that tracks the cursor -->
+    <div id="cursorAuroraFollower" class="pointer-events-none fixed w-[650px] h-[650px] rounded-full -translate-x-1/2 -translate-y-1/2 blur-[100px] opacity-0 transition-opacity duration-700 z-[1]" style="background: radial-gradient(circle, rgba(37, 99, 235, 0.28) 0%, rgba(139, 92, 246, 0.22) 35%, rgba(56, 189, 248, 0.12) 60%, transparent 75%); will-change: transform;"></div>
+
+    <!-- Floating Interactive Particle Canvas -->
+    <canvas id="particleCanvas" class="absolute inset-0 z-[2] opacity-85"></canvas>
     
     <!-- Animated Aurora Lights -->
     <div class="aurora-orb-1 -top-32 left-1/4"></div>
@@ -359,18 +411,18 @@
 
       <!-- Desktop Navigation Links -->
       <nav class="hidden md:flex items-center gap-7 text-xs font-medium text-content-secondary">
-        <a href="#home" class="nav-link-aurora hover:text-white py-1 active" data-nav="home">Home</a>
-        <a href="#about" class="nav-link-aurora hover:text-white py-1" data-nav="about">About</a>
-        <a href="#skills" class="nav-link-aurora hover:text-white py-1" data-nav="skills">Skills</a>
-        <a href="#projects" class="nav-link-aurora hover:text-white py-1" data-nav="projects">Projects</a>
-        <a href="#achievements" class="nav-link-aurora hover:text-white py-1" data-nav="achievements">Achievements</a>
-        <a href="#contact" class="nav-link-aurora hover:text-white py-1" data-nav="contact">Contact</a>
+        <a href="#home" class="nav-link-aurora hover:text-white py-1 active" data-nav="home" data-cursor="HOME">Home</a>
+        <a href="#about" class="nav-link-aurora hover:text-white py-1" data-nav="about" data-cursor="ABOUT">About</a>
+        <a href="#skills" class="nav-link-aurora hover:text-white py-1" data-nav="skills" data-cursor="SKILLS">Skills</a>
+        <a href="#projects" class="nav-link-aurora hover:text-white py-1" data-nav="projects" data-cursor="PROJECTS">Projects</a>
+        <a href="#achievements" class="nav-link-aurora hover:text-white py-1" data-nav="achievements" data-cursor="AWARDS">Achievements</a>
+        <a href="#contact" class="nav-link-aurora hover:text-white py-1" data-nav="contact" data-cursor="CONNECT">Contact</a>
       </nav>
 
       <!-- Right CTAs: Theme & Resume -->
       <div class="flex items-center gap-3">
         <!-- Resume Download Button -->
-        <a href="./public/kowshik-sravanam-resume.pdf" download="Kowshik_Sravanam_Resume.pdf" class="magnetic-btn hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/15 hover:border-aurora-sky/40 transition-all shadow-sm">
+        <a href="./public/kowshik-sravanam-resume.pdf" download="Kowshik_Sravanam_Resume.pdf" data-cursor="DOWNLOAD RESUME" class="magnetic-btn hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/15 hover:border-aurora-sky/40 transition-all shadow-sm">
           <i data-lucide="download" class="w-3.5 h-3.5 text-aurora-sky"></i>
           <span>Resume</span>
         </a>
@@ -452,23 +504,23 @@
           <!-- CTAs & Socials -->
           <div class="flex flex-wrap items-center gap-4 pt-2">
             <!-- CTA 1: Explore Work -->
-            <a href="#projects" class="magnetic-btn px-6 py-3.5 rounded-xl font-heading font-bold text-sm text-white bg-gradient-to-r from-aurora-blue to-aurora-violet hover:from-blue-600 hover:to-indigo-600 shadow-aurora-glow hover:scale-[1.02] transition-all flex items-center gap-2">
+            <a href="#projects" data-cursor="VIEW PROJECTS" class="magnetic-btn px-6 py-3.5 rounded-xl font-heading font-bold text-sm text-white bg-gradient-to-r from-aurora-blue to-aurora-violet hover:from-blue-600 hover:to-indigo-600 shadow-aurora-glow hover:scale-[1.02] transition-all flex items-center gap-2">
               <span>Explore My Work</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
 
             <!-- CTA 2: Let's Connect -->
-            <a href="#contact" class="magnetic-btn px-6 py-3.5 rounded-xl font-heading font-semibold text-sm text-content-main bg-white/5 hover:bg-white/10 border border-white/15 hover:border-aurora-sky/40 hover:scale-[1.02] transition-all flex items-center gap-2">
+            <a href="#contact" data-cursor="LET'S CONNECT" class="magnetic-btn px-6 py-3.5 rounded-xl font-heading font-semibold text-sm text-content-main bg-white/5 hover:bg-white/10 border border-white/15 hover:border-aurora-sky/40 hover:scale-[1.02] transition-all flex items-center gap-2">
               <span>Let's Connect</span>
               <i data-lucide="message-square" class="w-4 h-4 text-aurora-sky"></i>
             </a>
 
             <!-- Social Links -->
             <div class="flex items-center gap-2 sm:pl-2">
-              <a href="https://linkedin.com/in/kowshik-sravanam-622b7942b" target="_blank" rel="noreferrer" aria-label="LinkedIn" class="magnetic-btn w-11 h-11 rounded-xl glass-surface border border-white/10 hover:border-aurora-sky/50 text-content-secondary hover:text-white flex items-center justify-center transition-colors">
+              <a href="https://linkedin.com/in/kowshik-sravanam-622b7942b" target="_blank" rel="noreferrer" aria-label="LinkedIn" data-cursor="LINKEDIN" class="magnetic-btn w-11 h-11 rounded-xl glass-surface border border-white/10 hover:border-aurora-sky/50 text-content-secondary hover:text-white flex items-center justify-center transition-colors">
                 <i data-lucide="linkedin" class="w-4 h-4"></i>
               </a>
-              <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" aria-label="GitHub" class="magnetic-btn w-11 h-11 rounded-xl glass-surface border border-white/10 hover:border-aurora-violet/50 text-content-secondary hover:text-white flex items-center justify-center transition-colors">
+              <a href="https://github.com/kowshik008" target="_blank" rel="noreferrer" aria-label="GitHub" data-cursor="GITHUB" class="magnetic-btn w-11 h-11 rounded-xl glass-surface border border-white/10 hover:border-aurora-violet/50 text-content-secondary hover:text-white flex items-center justify-center transition-colors">
                 <i data-lucide="github" class="w-4 h-4"></i>
               </a>
             </div>
@@ -1465,59 +1517,308 @@
       });
     }, { passive: true });
 
-    // 4. Subtle Floating Particle Canvas System
-    (function initParticles() {
+    // ==================== 4. UNIQUE FLUID CURSOR & INTERACTIVE BACKGROUND ENGINE ====================
+    (function initCursorAndInteractiveBackground() {
+      const isTouch = window.matchMedia('(pointer: coarse)').matches;
+      const cursorDot = document.getElementById('cursorDot');
+      const cursorRing = document.getElementById('cursorRing');
+      const cursorLabel = document.getElementById('cursorLabel');
+      const auroraFollower = document.getElementById('cursorAuroraFollower');
+      const gridSpotlight = document.getElementById('cursorGridSpotlight');
       const canvas = document.getElementById('particleCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let width = canvas.width = window.innerWidth;
-      let height = canvas.height = window.innerHeight;
 
-      window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+
+      // Mouse tracking state
+      let mouseX = width / 2;
+      let mouseY = height / 2;
+      let ringX = mouseX;
+      let ringY = mouseY;
+      let glowX = mouseX;
+      let glowY = mouseY;
+
+      let isHovering = false;
+      let isClicking = false;
+      let isCursorActive = false;
+
+      // Spanned particles & stardust sparks
+      const particles = [];
+      const sparks = [];
+      const particleCount = isTouch ? 25 : 48;
+
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        canvas.width = width;
+        canvas.height = height;
+
+        window.addEventListener('resize', () => {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        });
+
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            baseRadius: Math.random() * 1.8 + 0.8,
+            radius: Math.random() * 1.8 + 0.8,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            baseColor: Math.random() > 0.4 ? 'rgba(56, 189, 248, ' : 'rgba(139, 92, 246, ',
+            alpha: Math.random() * 0.45 + 0.2
+          });
+        }
+
+        // Particle rendering loop
+        function renderParticles() {
+          ctx.clearRect(0, 0, width, height);
+
+          // 1. Update and draw stardust micro-sparks from cursor movement
+          for (let s = sparks.length - 1; s >= 0; s--) {
+            const sp = sparks[s];
+            sp.x += sp.vx;
+            sp.y += sp.vy;
+            sp.life -= 0.035;
+
+            if (sp.life <= 0) {
+              sparks.splice(s, 1);
+              continue;
+            }
+
+            ctx.beginPath();
+            ctx.arc(sp.x, sp.y, sp.size * sp.life, 0, Math.PI * 2);
+            ctx.fillStyle = sp.color + (sp.life * 0.7) + ')';
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = sp.color + '1)';
+            ctx.fill();
+          }
+
+          // 2. Draw connections between nearby particles (constellation web)
+          for (let i = 0; i < particles.length; i++) {
+            const p1 = particles[i];
+
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dx = p1.x - p2.x;
+              const dy = p1.y - p2.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+
+              if (dist < 95) {
+                const alpha = (1 - dist / 95) * 0.16;
+                ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+                ctx.lineWidth = 0.75;
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+              }
+            }
+
+            // 3. Distance from cursor to particle (interactive repulsion & laser connection)
+            if (isCursorActive) {
+              const cdx = p1.x - mouseX;
+              const cdy = p1.y - mouseY;
+              const cDist = Math.sqrt(cdx * cdx + cdy * cdy);
+              const maxBeamDist = 165;
+
+              if (cDist < maxBeamDist) {
+                // Interactive luminous beam connecting cursor to particle
+                const beamAlpha = (1 - cDist / maxBeamDist) * 0.55;
+                ctx.strokeStyle = `rgba(56, 189, 248, ${beamAlpha})`;
+                ctx.lineWidth = (1 - cDist / maxBeamDist) * 1.6;
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(mouseX, mouseY);
+                ctx.stroke();
+
+                // Gentle elastic repulsion physics
+                const force = (maxBeamDist - cDist) / maxBeamDist;
+                p1.vx += (cdx / cDist) * force * 0.45;
+                p1.vy += (cdy / cDist) * force * 0.45;
+              }
+            }
+
+            // Apply friction and boundary wraps
+            p1.x += p1.vx;
+            p1.y += p1.vy;
+            p1.vx *= 0.96;
+            p1.vy *= 0.96;
+
+            // Re-apply subtle continuous ambient drift
+            if (Math.abs(p1.vx) < 0.1) p1.vx += (Math.random() - 0.5) * 0.1;
+            if (Math.abs(p1.vy) < 0.1) p1.vy += (Math.random() - 0.5) * 0.1;
+
+            if (p1.x < 0) p1.x = width;
+            if (p1.x > width) p1.x = 0;
+            if (p1.y < 0) p1.y = height;
+            if (p1.y > height) p1.y = 0;
+
+            // Draw particle
+            ctx.beginPath();
+            ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p1.baseColor + p1.alpha + ')';
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#38BDF8';
+            ctx.fill();
+          }
+
+          requestAnimationFrame(renderParticles);
+        }
+
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReduced) {
+          renderParticles();
+        }
+      }
+
+      // If on mobile/touch, skip custom desktop cursor physics
+      if (isTouch) return;
+
+      // Mouse Move Event Listener
+      window.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        if (!isCursorActive) {
+          isCursorActive = true;
+          if (cursorDot) cursorDot.style.opacity = '1';
+          if (cursorRing) cursorRing.style.opacity = '1';
+          if (auroraFollower) auroraFollower.style.opacity = '0.75';
+          if (gridSpotlight) gridSpotlight.style.opacity = '0.55';
+        }
+
+        // Instant dot positioning (zero latency)
+        if (cursorDot) {
+          cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+        }
+
+        // Label positioning
+        if (cursorLabel) {
+          cursorLabel.style.transform = `translate3d(${mouseX + 16}px, ${mouseY - 14}px, 0)`;
+        }
+
+        // Interactive background grid spotlight coordinates
+        if (gridSpotlight) {
+          gridSpotlight.style.setProperty('--grid-cx', `${mouseX}px`);
+          gridSpotlight.style.setProperty('--grid-cy', `${mouseY}px`);
+        }
+
+        // Spawn occasional stardust spark on movement
+        if (Math.random() > 0.45) {
+          sparks.push({
+            x: mouseX + (Math.random() - 0.5) * 10,
+            y: mouseY + (Math.random() - 0.5) * 10,
+            vx: (Math.random() - 0.5) * 1.5,
+            vy: (Math.random() - 0.5) * 1.5 - 0.5,
+            size: Math.random() * 2.5 + 1.2,
+            life: 1,
+            color: Math.random() > 0.5 ? 'rgba(56, 189, 248, ' : 'rgba(139, 92, 246, '
+          });
+        }
+      }, { passive: true });
+
+      // Cursor Ring & Aurora Fluid Animation Loop (Spring Lerp)
+      function animateCursorLoop() {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+
+        let scale = isClicking ? 0.7 : (isHovering ? 1.55 : 1);
+        if (cursorRing) {
+          cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%) scale(${scale})`;
+        }
+
+        // Aurora follower behind cursor with soft celestial inertia
+        if (auroraFollower) {
+          glowX += (mouseX - glowX) * 0.07;
+          glowY += (mouseY - glowY) * 0.07;
+          auroraFollower.style.transform = `translate3d(${glowX}px, ${glowY}px, 0) translate(-50%, -50%)`;
+        }
+
+        requestAnimationFrame(animateCursorLoop);
+      }
+      requestAnimationFrame(animateCursorLoop);
+
+      // Context-Sensitive Hover Targets
+      const hoverSelector = 'a, button, input, textarea, select, .glass-card, .magnetic-btn, [data-cursor]';
+
+      document.addEventListener('mouseover', e => {
+        const target = e.target.closest(hoverSelector);
+        if (target) {
+          isHovering = true;
+          if (cursorRing) {
+            cursorRing.style.borderColor = '#38BDF8';
+            cursorRing.style.backgroundColor = 'rgba(56, 189, 248, 0.14)';
+            cursorRing.style.boxShadow = '0 0 25px rgba(56, 189, 248, 0.5), inset 0 0 10px rgba(56, 189, 248, 0.2)';
+          }
+
+          const labelText = target.getAttribute('data-cursor');
+          if (labelText && cursorLabel) {
+            cursorLabel.textContent = labelText;
+            cursorLabel.style.opacity = '1';
+          }
+        }
       });
 
-      const particleCount = 35;
-      const particles = [];
+      document.addEventListener('mouseout', e => {
+        const target = e.target.closest(hoverSelector);
+        if (target) {
+          isHovering = false;
+          if (cursorRing) {
+            cursorRing.style.borderColor = 'rgba(139, 92, 246, 0.7)';
+            cursorRing.style.backgroundColor = 'rgba(56, 189, 248, 0.05)';
+            cursorRing.style.boxShadow = '0 0 15px rgba(56, 189, 248, 0.25)';
+          }
+          if (cursorLabel) {
+            cursorLabel.style.opacity = '0';
+          }
+        }
+      });
 
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          radius: Math.random() * 1.6 + 0.6,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-          color: Math.random() > 0.5 ? 'rgba(56, 189, 248, ' : 'rgba(139, 92, 246, ',
-          alpha: Math.random() * 0.4 + 0.15
-        });
-      }
+      // Mouse Down / Up Tactile Effects & Click Ripple Shockwave
+      window.addEventListener('mousedown', e => {
+        isClicking = true;
 
-      function render() {
-        ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
+        // Create expanding ripple element
+        const ripple = document.createElement('div');
+        ripple.className = 'cursor-ripple';
+        ripple.style.left = `${e.clientX}px`;
+        ripple.style.top = `${e.clientY}px`;
+        document.body.appendChild(ripple);
 
-          if (p.x < 0) p.x = width;
-          if (p.x > width) p.x = 0;
-          if (p.y < 0) p.y = height;
-          if (p.y > height) p.y = 0;
+        // Spawn a burst of stardust sparks on click
+        for (let k = 0; k < 12; k++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 3 + 1.5;
+          sparks.push({
+            x: e.clientX,
+            y: e.clientY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            size: Math.random() * 3 + 1.5,
+            life: 1,
+            color: Math.random() > 0.5 ? 'rgba(56, 189, 248, ' : 'rgba(139, 92, 246, '
+          });
+        }
 
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = p.color + p.alpha + ')';
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = '#38BDF8';
-          ctx.fill();
-        });
-        requestAnimationFrame(render);
-      }
+        setTimeout(() => {
+          if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
+        }, 700);
+      });
 
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!prefersReduced) {
-        render();
-      }
+      window.addEventListener('mouseup', () => {
+        isClicking = false;
+      });
+
+      // Hide cursor when leaving window
+      document.addEventListener('mouseleave', () => {
+        isCursorActive = false;
+        if (cursorDot) cursorDot.style.opacity = '0';
+        if (cursorRing) cursorRing.style.opacity = '0';
+        if (auroraFollower) auroraFollower.style.opacity = '0';
+        if (gridSpotlight) gridSpotlight.style.opacity = '0';
+      });
     })();
 
     // 5. Spotlight Effect & 3D Tilt on Desktop
