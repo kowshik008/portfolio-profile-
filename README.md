@@ -1,42 +1,103 @@
-# Kowshik Sravanam — AI Engineer Portfolio
+# Kowshik Sravanam — Personal Developer Portfolio
 
-A Next.js App Router portfolio built around a custom editorial visual system:
-- Midnight `#101211`, electric lime `#C6FF3D`, warm ivory `#F2F0E8`, coral `#FF7048`
-- Three.js / React Three Fiber animated 3D neural-inspired hero object and particle field
-- Custom roaming cursor with delayed ring and hover labels (desktop pointer devices)
-- Framer Motion reveals, responsive portrait, project cards and scroll progress
-- Reduced-motion support and mobile cursor fallback
+<div align="center">
 
-## Requirements
-- Node.js 20.9+ (recommended for Next.js 15)
-- npm
+![Portfolio Banner](https://img.shields.io/badge/Focus-Artificial%20Intelligence-2563EB?style=for-the-badge&logo=openai&logoColor=white)
+![Institution](https://img.shields.io/badge/Education-NIAT%20%7C%20B.Tech%20CSE-8B5CF6?style=for-the-badge&logo=google-classroom&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-38BDF8?style=for-the-badge)
 
-## Run locally
+**Aspiring AI Engineer | B.Tech Student | Technology Enthusiast**
+
+[Explore Live Demo](http://localhost:3000/) · [LinkedIn Profile](https://linkedin.com/in/kowshik-sravanam-622b7942b) · [GitHub Profile](https://github.com/kowshik008)
+
+</div>
+
+---
+
+## 🌌 Overview
+
+A premium, modern personal developer portfolio designed and engineered with a **Midnight Aurora Glassmorphism** aesthetic inspired by Apple, Linear, and Vercel. 
+
+Crafted to present practical software engineering capabilities, machine learning fundamentals, and algorithmic curiosity to recruiters, internship coordinators, and technical peers.
+
+---
+
+## ✨ Key Features
+
+- **Midnight Aurora Aesthetic**: Deep `#080D1A` space palette with rich frosted-glass surfaces (`backdrop-filter: blur(18px)`), subtle layered shadows, and ambient aurora gradients.
+- **Unique Fluid Aurora Cursor**:
+  - Sky-blue glowing core with zero-lag tracking.
+  - Trailing violet frosted glass ring with spring-physics interpolation (`lerp: 0.18`).
+  - Dynamic context badges on hover (`VIEW PROJECTS`, `LET'S CONNECT`, `DOWNLOAD RESUME`, `GITHUB`, etc.).
+  - Tactile click contraction and expanding ripple shockwaves.
+- **Cursor-Interactive Background Engine**:
+  - **Dynamic Liquid Aurora**: Follows cursor movement across the viewport with fluid inertia.
+  - **Interactive Tech Grid**: Geometry spotlights the background around the active pointer.
+  - **Constellation Laser Field**: Connects nearby particles to the cursor with glowing cyan laser beams.
+  - **Particle Repulsion & Stardust Trail**: Particles deflect away with spring tension, and drifting micro-sparks dissolve into deep space.
+- **Asymmetric Bento Grid with Interactive Simulations**:
+  1. **Voter Eligibility Calculator**: Interactive age validation simulator with defensive boundary checks.
+  2. **ATM Management System**: Interactive banking console with live ledger balance, deposit, and withdrawal actions.
+  3. **Student Grade Calculator**: Dynamic coursework sliders calculating GPA and grade categorizations.
+  4. **ReVive AI**: Conceptual AI vision platform for responsible electronic waste classification and metal yield recovery.
+- **Honest & Categorized Competencies**:
+  - **Programming**: Python, HTML5, CSS3/Tailwind, JavaScript.
+  - **Technology**: Artificial Intelligence, Generative AI fundamentals, Web Development, Problem Solving.
+  - **Professional**: Teamwork, Technical Communication, Creative Thinking, Adaptability.
+- **Recruiter Ready**:
+  - One-click copy email button (`kowshiksravanam6565@gmail.com`).
+  - Direct resume download linking to verified PDF.
+  - Fully responsive across desktop, tablet, and mobile with automatic touch-mode fallback.
+  - Full support for `prefers-reduced-motion`.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Markup & Layout**: HTML5, Semantic Elements, CSS Grid, Flexbox
+- **Styling**: Tailwind CSS, Custom Glassmorphism System, Google Fonts (*Space Grotesk*, *Inter*, *JetBrains Mono*)
+- **Icons**: [Lucide Icons](https://lucide.dev/)
+- **Graphics & Physics**: Vanilla HTML5 Canvas Particle Engine & Constellation Graph
+- **Framework Support**: Next.js 15, React 19, TypeScript, Framer Motion
+
+---
+
+## 🚀 Quick Start (Local Development)
+
+### Option 1: Instant Local Server (No Node.js or Python required)
+Double-click `start-server.bat` or run in PowerShell:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\serve.ps1
+```
+Open **[http://localhost:3000/](http://localhost:3000/)** in your browser.
+
+### Option 2: Next.js Development Server (When Node.js is installed)
 ```bash
 npm install
 npm run dev
 ```
-Open http://localhost:3000
 
-## Production build
-```bash
-npm run build
-npm start
-```
+---
 
-## Personalize before publishing
-1. In `components/Portfolio.tsx`, replace `hello@example.com` with your real email.
-2. Replace the generic GitHub and LinkedIn profile URLs in the footer with your actual profile URLs.
-3. Replace the sample skill tags with technologies you can confidently discuss.
-4. Replace the four project placeholders with real project names, descriptions, outcomes, demo URLs and repository links.
-5. Confirm the availability label is accurate.
-6. In `app/layout.tsx`, replace `https://example.com` with your real domain before production deployment.
+## 🌐 Deploy to GitHub Pages (1-Click)
 
-## Deploy
-Push this folder to a Git repository and import it into Vercel, or deploy to any platform supporting Next.js 15. No API keys are required for the current site.
+1. Go to your repository settings: **Settings** → **Pages**.
+2. Under **Build and deployment** → **Source**, select **Deploy from a branch**.
+3. Choose branch: `main` and folder: `/ (root)`.
+4. Click **Save**. Your portfolio will be live at:
+   `https://kowshik008.github.io/portfolio-profile-/`
 
-## Notes
-- Your uploaded portrait is included at `public/images/kowshik-sravanam.jpg`.
-- The hero uses a genuine Three.js scene; on slower devices the browser may render the scene at a lower device-pixel ratio.
-- Social destinations are generic placeholders because actual profile URLs were not provided.
-- This is a complete runnable front-end starter, not a deployed public website.
+---
+
+## 📬 Contact & Connect
+
+- **Name**: Kowshik Sravanam
+- **Email**: [kowshiksravanam6565@gmail.com](mailto:kowshiksravanam6565@gmail.com)
+- **LinkedIn**: [linkedin.com/in/kowshik-sravanam-622b7942b](https://linkedin.com/in/kowshik-sravanam-622b7942b)
+- **GitHub**: [github.com/kowshik008](https://github.com/kowshik008)
+
+---
+
+<div align="center">
+<sub>Designed and engineered by Kowshik Sravanam © 2026. Built with precision and curiosity.</sub>
+</div>
