@@ -76,14 +76,109 @@
     .text-link { font: 10px var(--mono); letter-spacing: 0.08em; display: inline-flex; gap: 10px; align-items: center; color: #d2d5cd; transition: color 0.2s; }
     .text-link:hover { color: var(--lime); }
 
-    .portrait-wrap { width: min(100%, 430px); aspect-ratio: 0.82; justify-self: end; position: relative; perspective: 1000px; z-index: 2; }
-    .portrait-image { position: absolute; inset: 5% 7% 5% 5%; overflow: hidden; border: 1px solid rgba(198, 255, 61, 0.55); transform: rotate(2deg); box-shadow: 20px 24px 0 rgba(198, 255, 61, 0.055); }
-    .portrait-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; filter: saturate(0.82) contrast(1.04); display: block; }
-    .portrait-orbit { position: absolute; inset: -8%; border: 1px solid rgba(198, 255, 61, 0.18); border-radius: 50%; transform: rotate(-25deg); pointer-events: none; }
-    .orbit-two { inset: -15% -4%; transform: rotate(30deg); border-color: rgba(255, 112, 72, 0.16); }
-    .portrait-label { position: absolute; bottom: 10%; left: 0; background: var(--lime); color: var(--ink); padding: 12px 14px; font: 9px var(--mono); letter-spacing: 0.08em; }
-    .portrait-label b { font-weight: 400; opacity: 0.6; }
-    .portrait-side { position: absolute; right: -5%; top: 12%; writing-mode: vertical-rl; color: #81877e; font: 9px var(--mono); letter-spacing: 0.15em; }
+    .portrait-wrap {
+      width: min(100%, 450px);
+      aspect-ratio: 0.86;
+      justify-self: end;
+      position: relative;
+      perspective: 1000px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .portrait-glow {
+      position: absolute;
+      inset: -12%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 40%, rgba(198, 255, 61, 0.22), rgba(255, 112, 72, 0.1) 45%, transparent 75%);
+      filter: blur(55px);
+      pointer-events: none;
+      z-index: 0;
+      animation: pulseGlow 5s ease-in-out infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { opacity: 0.7; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1.05); }
+    }
+    .portrait-image {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      /* Seamless organic fade directly into midnight background */
+      -webkit-mask-image: radial-gradient(ellipse 90% 82% at 50% 42%, black 48%, rgba(0,0,0,0.85) 66%, transparent 95%),
+                          linear-gradient(to bottom, black 65%, transparent 98%);
+      mask-image: radial-gradient(ellipse 90% 82% at 50% 42%, black 48%, rgba(0,0,0,0.85) 66%, transparent 95%),
+                  linear-gradient(to bottom, black 65%, transparent 98%);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.85));
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .portrait-wrap:hover .portrait-image {
+      transform: translateY(-4px) scale(1.015);
+    }
+    .portrait-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      filter: contrast(1.07) brightness(0.97) saturate(1.04);
+      display: block;
+      transition: filter 0.4s ease;
+    }
+    .portrait-orbit {
+      position: absolute;
+      inset: -6%;
+      border: 1px solid rgba(198, 255, 61, 0.22);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+      animation: orbitSpin 26s linear infinite;
+    }
+    .orbit-two {
+      inset: -14% -4%;
+      border-color: rgba(255, 112, 72, 0.22);
+      animation: orbitSpinRev 34s linear infinite;
+    }
+    @keyframes orbitSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes orbitSpinRev {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+    .portrait-label {
+      position: absolute;
+      bottom: 8%;
+      left: -12px;
+      background: rgba(16, 18, 17, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(198, 255, 61, 0.45);
+      color: var(--lime);
+      padding: 10px 14px;
+      font: 9px var(--mono);
+      letter-spacing: 0.12em;
+      z-index: 3;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    }
+    .portrait-label b { font-weight: 400; opacity: 0.6; color: var(--ivory); }
+    .portrait-side {
+      position: absolute;
+      right: -8%;
+      top: 15%;
+      writing-mode: vertical-rl;
+      color: #81877e;
+      font: 9px var(--mono);
+      letter-spacing: 0.18em;
+      z-index: 2;
+    }
 
     .motion-scene { position: absolute; z-index: 0; right: 0; top: 4%; width: 62%; height: 90%; pointer-events: none; opacity: 0.78; }
     .motion-scene canvas { width: 100% !important; height: 100% !important; display: block; }
@@ -210,6 +305,7 @@
       </div>
 
       <div class="portrait-wrap">
+        <div class="portrait-glow"></div>
         <div class="portrait-orbit orbit-one"></div>
         <div class="portrait-orbit orbit-two"></div>
         <div class="portrait-image">

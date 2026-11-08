@@ -60,7 +60,8 @@ export default function Portfolio() {
             <a className="text-link" href="#about" data-cursor="ABOUT ME">GET TO KNOW ME <ArrowDownRight size={15} /></a>
           </motion.div>
         </div>
-        <motion.div className="portrait-wrap" initial={{ opacity: 0, y: 35, rotate: 2 }} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ duration: 1, delay: .2 }}>
+        <motion.div className="portrait-wrap" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: .2 }}>
+          <div className="portrait-glow" />
           <div className="portrait-orbit orbit-one" /><div className="portrait-orbit orbit-two" />
           <div className="portrait-image"><Image src="/images/kowshik-sravanam.jpg" alt="Kowshik Sravanam" fill priority sizes="(max-width: 800px) 78vw, 38vw" /></div>
           <span className="portrait-label">KOWSHIK SRAVANAM <b>／ 01</b></span>
