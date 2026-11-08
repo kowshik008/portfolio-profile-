@@ -42,7 +42,17 @@
       opacity: .045;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
     }
-    .reading-progress { height: 2px; width: 0; position: fixed; top: 0; left: 0; background: var(--lime); z-index: 100; transition: width 0.05s ease-out; }
+    .reading-progress {
+      height: 3px;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: linear-gradient(90deg, var(--lime), #d8ff7d, var(--coral));
+      box-shadow: 0 0 16px rgba(198, 255, 61, 0.8), 0 0 28px rgba(198, 255, 61, 0.4);
+      z-index: 100;
+      transition: width 0.08s ease-out;
+    }
     .cursor-dot, .cursor-ring, .cursor-label { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 110; }
     .cursor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); mix-blend-mode: difference; }
     .cursor-ring { width: 38px; height: 38px; border: 1px solid rgba(198, 255, 61, 0.72); border-radius: 50%; transition: width 0.25s, height 0.25s, border-color 0.25s; }
@@ -56,29 +66,53 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 60;
-      background: rgba(16, 18, 17, 0.55);
-      backdrop-filter: blur(24px) saturate(1.5);
-      -webkit-backdrop-filter: blur(24px) saturate(1.5);
-      transition: background 0.4s, box-shadow 0.4s;
+      background: rgba(16, 18, 17, 0.6);
+      backdrop-filter: blur(28px) saturate(1.6);
+      -webkit-backdrop-filter: blur(28px) saturate(1.6);
+      transition: background 0.4s, box-shadow 0.4s, border-color 0.4s;
     }
     .site-header.scrolled {
-      background: rgba(16, 18, 17, 0.82);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      background: rgba(16, 18, 17, 0.85);
+      border-bottom-color: rgba(198, 255, 61, 0.2);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(198, 255, 61, 0.15);
     }
     main { padding-top: 82px; }
     .wordmark { font-weight: 800; font-size: 15px; letter-spacing: -0.06em; }
     .wordmark span { color: var(--lime); }
-    nav { display: flex; gap: 34px; }
+    nav { display: flex; gap: 16px; align-items: center; }
     nav a, .availability, .hero-foot, .eyebrow, .section-index, .facts-grid small, .project-top, .project-status, .skill-list span, .contact-link, .footer { font-family: var(--mono); font-size: 9px; letter-spacing: 0.11em; }
-    nav a { color: #c5c9c0; transition: color 0.2s; }
-    nav a:hover { color: var(--lime); }
-    .availability { color: var(--lime); display: flex; align-items: center; gap: 9px; }
+    nav a {
+      color: #c5c9c0;
+      padding: 7px 14px;
+      border-radius: 20px;
+      border: 1px solid transparent;
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    nav a:hover, nav a.active {
+      color: var(--lime);
+      background: rgba(198, 255, 61, 0.08);
+      border-color: rgba(198, 255, 61, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 0 18px rgba(198, 255, 61, 0.15);
+    }
+    .availability {
+      color: var(--lime);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 14px;
+      background: rgba(198, 255, 61, 0.06);
+      border: 1px solid rgba(198, 255, 61, 0.2);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
     .availability i { width: 6px; height: 6px; background: var(--lime); border-radius: 50%; box-shadow: 0 0 12px var(--lime); animation: pulse 1.8s infinite; }
     @keyframes pulse { 50% { opacity: 0.35; } }
 
@@ -477,6 +511,42 @@
     .socials a { display: inline-flex; align-items: center; gap: 7px; transition: color 0.2s; }
     .socials a:hover, .footer > a:hover { color: var(--lime); }
 
+    /* ── Floating Glass Back To Top ── */
+    .floating-glass-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(21, 25, 22, 0.7);
+      backdrop-filter: blur(20px) saturate(1.5);
+      -webkit-backdrop-filter: blur(20px) saturate(1.5);
+      border: 1px solid rgba(198, 255, 61, 0.35);
+      color: var(--lime);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 90;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(18px) scale(0.9);
+      transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 25px rgba(198, 255, 61, 0.15);
+    }
+    .floating-glass-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+    .floating-glass-top:hover {
+      background: var(--lime);
+      color: var(--ink);
+      border-color: var(--lime);
+      transform: translateY(-4px) scale(1.08);
+      box-shadow: 0 16px 40px rgba(198, 255, 61, 0.35);
+    }
+
     @media (max-width: 850px) {
       body, a { cursor: auto; }
       .cursor-dot, .cursor-ring, .cursor-label { display: none !important; }
@@ -693,6 +763,9 @@
       </a>
     </div>
     <a href="#top">BACK TO TOP ↑</a>
+    <a href="#top" class="floating-glass-top" id="backToTop" data-cursor="TOP" aria-label="Back to top">
+      <i data-lucide="arrow-up" style="width: 18px; height: 18px;"></i>
+    </a>
   </footer>
 
   <script>
@@ -720,14 +793,79 @@
       reveals.forEach(el => el.classList.add('visible'));
     }
 
-    // Header glass background on scroll
+    // Header glass & Parallax effects on scroll
     const header = document.querySelector('.site-header');
+    const heroCopy = document.querySelector('.hero-copy');
+    const heroPortrait = document.querySelector('.portrait-wrap');
+    const motionScene = document.querySelector('.motion-scene');
+    const btt = document.getElementById('backToTop');
+    const sections = document.querySelectorAll('section[id], #top');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
     window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+
+      // Header glass blur adaptation
       if (header) {
-        if (window.scrollY > 40) header.classList.add('scrolled');
+        if (scrolled > 40) header.classList.add('scrolled');
         else header.classList.remove('scrolled');
       }
+
+      // Floating Back-to-Top visibility
+      if (btt) {
+        if (scrolled > 350) btt.classList.add('visible');
+        else btt.classList.remove('visible');
+      }
+
+      // Hero Parallax (disabled if reduced-motion is preferred)
+      if (scrolled < window.innerHeight && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        if (heroCopy) {
+          heroCopy.style.transform = `translate3d(0, ${scrolled * 0.24}px, 0)`;
+          heroCopy.style.opacity = Math.max(0, 1 - scrolled / 550);
+        }
+        if (heroPortrait) {
+          heroPortrait.style.transform = `translate3d(0, ${scrolled * 0.16}px, 0)`;
+          heroPortrait.style.opacity = Math.max(0, 1 - scrolled / 680);
+        }
+        if (motionScene) {
+          motionScene.style.transform = `translate3d(0, ${scrolled * 0.12}px, 0)`;
+        }
+      }
+
+      // Active Section Navigation Indicator
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 160;
+        if (scrolled >= top) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
     }, { passive: true });
+
+    // Interactive 3D Glass Specular Tilt Effect on Cards
+    const glassCards = document.querySelectorAll('.project-card, .about-card-glass');
+    glassCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        if (window.matchMedia('(pointer: coarse)').matches) return;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6;
+        const rotateY = ((x - centerX) / centerX) * 6;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
 
     // Custom roaming cursor
     if (!window.matchMedia("(pointer: coarse)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

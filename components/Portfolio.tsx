@@ -20,10 +20,31 @@ export default function Portfolio() {
   const reduced = useReducedMotion();
   useEffect(() => {
     const progress = document.querySelector<HTMLElement>(".reading-progress");
+    const header = document.querySelector<HTMLElement>(".site-header");
+    const sections = document.querySelectorAll<HTMLElement>("section[id], #top");
+    const navLinks = document.querySelectorAll<HTMLElement>("nav a[href^='#']");
+
     const onScroll = () => {
+      const scrolled = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (progress) progress.style.width = `${max > 0 ? (window.scrollY / max) * 100 : 0}%`;
+      if (progress) progress.style.width = `${max > 0 ? (scrolled / max) * 100 : 0}%`;
+
+      if (header) {
+        if (scrolled > 40) header.classList.add("scrolled");
+        else header.classList.remove("scrolled");
+      }
+
+      let current = "";
+      sections.forEach(section => {
+        const top = section.offsetTop - 160;
+        if (scrolled >= top) current = section.getAttribute("id") || "";
+      });
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) link.classList.add("active");
+      });
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
