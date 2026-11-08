@@ -49,7 +49,29 @@
     .cursor-label { font: 9px var(--mono); letter-spacing: 0.1em; color: var(--ink); background: var(--lime); padding: 7px 9px; opacity: 0; transition: opacity 0.2s; white-space: nowrap; }
     .cursor-active .cursor-ring { width: 64px; height: 64px; border-color: var(--coral); }
     
-    .site-header { height: 82px; padding: 0 6vw; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); position: relative; z-index: 5; }
+    /* ── Glassmorphic Header ── */
+    .site-header {
+      height: 82px;
+      padding: 0 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 60;
+      background: rgba(16, 18, 17, 0.55);
+      backdrop-filter: blur(24px) saturate(1.5);
+      -webkit-backdrop-filter: blur(24px) saturate(1.5);
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    .site-header.scrolled {
+      background: rgba(16, 18, 17, 0.82);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+    main { padding-top: 82px; }
     .wordmark { font-weight: 800; font-size: 15px; letter-spacing: -0.06em; }
     .wordmark span { color: var(--lime); }
     nav { display: flex; gap: 34px; }
@@ -188,26 +210,181 @@
     .section { padding: 125px 6vw; border-top: 1px solid var(--line); }
     .section-heading { font-size: clamp(40px, 6vw, 78px); line-height: 0.98; letter-spacing: -0.08em; margin: 0 0 38px; }
     .section-heading em { font-style: normal; color: var(--lime); }
-    .about-layout { display: grid; grid-template-columns: 1fr 0.75fr; gap: 8vw; }
-    .about-statement { max-width: 610px; color: #d0d4ca; font-size: clamp(18px, 2.1vw, 25px); line-height: 1.58; letter-spacing: -0.035em; }
+    .about-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 5vw; align-items: start; }
+    .about-statement { max-width: 620px; color: #d0d4ca; font-size: clamp(17px, 1.8vw, 22px); line-height: 1.62; letter-spacing: -0.025em; margin-bottom: 16px; }
     .about-statement strong { color: var(--lime); font-weight: 600; }
-    .facts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-content: start; padding-top: 12px; }
-    .facts-grid div { border-top: 1px solid var(--line); padding-top: 14px; }
+    .about-subtext { max-width: 600px; color: #9da49a; font-size: 14px; line-height: 1.8; margin: 0 0 32px; }
+    /* ── Recognizable Portrait Card in About ── */
+    .about-card-glass {
+      background: rgba(21, 25, 22, 0.55);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid rgba(198, 255, 61, 0.16);
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45), 0 0 30px rgba(198, 255, 61, 0.05);
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s, box-shadow 0.4s;
+    }
+    .about-card-glass:hover {
+      transform: translateY(-6px);
+      border-color: rgba(198, 255, 61, 0.4);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(198, 255, 61, 0.12);
+    }
+    .about-portrait-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 0.96;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #111412;
+      border: 1px solid rgba(242, 240, 232, 0.08);
+    }
+    .about-portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      filter: contrast(1.05) saturate(1.02);
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .about-card-glass:hover .about-portrait-frame img {
+      transform: scale(1.03);
+    }
+    .about-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 4px 4px;
+      font-family: var(--mono);
+    }
+    .about-card-name {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      color: var(--ivory);
+    }
+    .about-card-role {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      color: var(--lime);
+      margin-top: 3px;
+    }
+    .about-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 8px;
+      letter-spacing: 0.1em;
+      color: var(--lime);
+      background: rgba(198, 255, 61, 0.1);
+      border: 1px solid rgba(198, 255, 61, 0.25);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .about-card-badge i {
+      width: 5px;
+      height: 5px;
+      background: var(--lime);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--lime);
+      animation: pulse 1.8s infinite;
+    }
+    /* ── Glassmorphic Facts Grid ── */
+    .facts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-content: start; padding-top: 12px; }
+    .facts-grid div {
+      background: rgba(21, 25, 22, 0.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(198, 255, 61, 0.08);
+      border-radius: 12px;
+      padding: 20px 18px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .facts-grid div:hover {
+      border-color: rgba(198, 255, 61, 0.3);
+      transform: translateY(-3px);
+    }
     .facts-grid small { display: block; color: #858d82; margin-bottom: 12px; }
     .facts-grid span { font-size: 13px; }
 
     .section-intro { max-width: 470px; color: #aeb4aa; font-size: 14px; line-height: 1.8; margin: -12px 0 35px; }
+    /* ── Glassmorphic Skill Tags ── */
     .skill-list { display: flex; flex-wrap: wrap; gap: 10px; }
-    .skill-list span { border: 1px solid var(--line); padding: 14px 17px; color: #d6d9d1; transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s; cursor: pointer; }
-    .skill-list span:hover { background: var(--lime); color: var(--ink); border-color: var(--lime); transform: translateY(-4px); }
+    .skill-list span {
+      background: rgba(21, 25, 22, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(198, 255, 61, 0.12);
+      padding: 14px 17px;
+      color: #d6d9d1;
+      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .skill-list span:hover {
+      background: var(--lime);
+      color: var(--ink);
+      border-color: var(--lime);
+      transform: translateY(-5px) scale(1.04);
+      box-shadow: 0 12px 30px rgba(198, 255, 61, 0.2);
+    }
 
+    /* ── Glassmorphic Project Cards ── */
     .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .project-card { min-height: 290px; background: #151916; border: 1px solid var(--line); padding: 27px; position: relative; transition: transform 0.3s, border-color 0.3s; overflow: hidden; cursor: pointer; }
-    .project-card:after { content: ""; position: absolute; width: 240px; height: 240px; border-radius: 50%; right: -130px; bottom: -160px; background: radial-gradient(circle, rgba(198, 255, 61, 0.13), transparent 70%); transition: transform 0.5s; pointer-events: none; }
-    .project-card:hover { transform: translateY(-5px); border-color: rgba(198, 255, 61, 0.65); }
-    .project-card:hover:after { transform: scale(1.5); }
+    .project-card {
+      min-height: 290px;
+      background: rgba(21, 25, 22, 0.45);
+      backdrop-filter: blur(20px) saturate(1.3);
+      -webkit-backdrop-filter: blur(20px) saturate(1.3);
+      border: 1px solid rgba(198, 255, 61, 0.08);
+      border-radius: 14px;
+      padding: 27px;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s, box-shadow 0.4s;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(198, 255, 61, 0.04) 0%, transparent 50%, rgba(255, 112, 72, 0.03) 100%);
+      pointer-events: none;
+    }
+    .project-card:after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      right: -130px;
+      bottom: -160px;
+      background: radial-gradient(circle, rgba(198, 255, 61, 0.14), transparent 70%);
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      pointer-events: none;
+    }
+    .project-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(198, 255, 61, 0.5);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(198, 255, 61, 0.06);
+    }
+    .project-card:hover:after { transform: scale(1.6); }
     .project-top { display: flex; justify-content: space-between; color: var(--lime); }
-    .project-status { color: #858d82; border: 1px solid var(--line); padding: 6px 8px; font-size: 8px; }
+    .project-status {
+      color: var(--lime);
+      background: rgba(198, 255, 61, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(198, 255, 61, 0.2);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 8px;
+    }
     .project-card h3 { font-size: clamp(25px, 3vw, 39px); letter-spacing: -0.06em; line-height: 1.05; margin: 54px 0 12px; max-width: 350px; }
     .project-card p { color: #9da49a; font-size: 12px; line-height: 1.75; max-width: 390px; }
     .project-arrow { position: absolute; right: 26px; bottom: 25px; color: var(--lime); }
@@ -217,9 +394,85 @@
     .contact h2 { font-size: clamp(48px, 9vw, 118px); line-height: 0.88; letter-spacing: -0.09em; margin: 0 0 25px; }
     .contact h2 span { color: var(--ivory); }
     .contact p { font-size: 14px; margin: 0 0 28px; }
-    .contact-link { display: inline-flex; align-items: center; gap: 18px; border-bottom: 1px solid rgba(16, 18, 17, 0.5); padding-bottom: 9px; font-weight: 600; }
+    /* ── Scroll Reveal Animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(45px);
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    /* Stagger children */
+    .stagger-children > * { transition-delay: calc(var(--i, 0) * 0.08s); }
 
-    .footer { padding: 25px 6vw; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: #858d82; }
+    /* ── Hero Parallax ── */
+    .hero-copy, .portrait-wrap, .motion-scene {
+      will-change: transform;
+    }
+
+    /* ── Glassmorphic Contact Link ── */
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      border-bottom: 1px solid rgba(16, 18, 17, 0.5);
+      padding: 14px 22px;
+      font-weight: 600;
+      background: rgba(16, 18, 17, 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(16, 18, 17, 0.3);
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    .contact-link:hover {
+      background: rgba(16, 18, 17, 0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ── Glassmorphic Footer ── */
+    .footer {
+      padding: 25px 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: #858d82;
+      background: rgba(16, 18, 17, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--line);
+    }
     .socials { display: flex; gap: 22px; }
     .socials a { display: inline-flex; align-items: center; gap: 7px; transition: color 0.2s; }
     .socials a:hover, .footer > a:hover { color: var(--lime); }
@@ -324,19 +577,45 @@
     </section>
 
     <section class="section about" id="about">
-      <div class="section-index">01 / A LITTLE ABOUT ME</div>
+      <div class="section-index reveal">01 / ABOUT ME</div>
       <div class="about-layout">
-        <div>
-          <h2 class="section-heading">CURIOUS BY<br />NATURE. <em>BUILT</em><br />TO EXPLORE.</h2>
-          <p class="about-statement">
-            I'm a first-year B.Tech student at NIAT, passionate about <strong>Artificial Intelligence, Python programming, Web Development, and Generative AI.</strong> I’m building my technical foundation through hands-on learning, personal projects, hackathons, and ideathons to create projects that go beyond classroom learning.
-          </p>
+        <!-- ── Left Column: Narrative & Details (Easy to edit) ── -->
+        <div class="about-copy-col reveal-left">
+          <h2 class="section-heading">TURNING IDEAS<br />INTO <em>EXPRESSIVE</em><br />EXPERIENCES.</h2>
+          
+          <!-- Editable Biography Text -->
+          <div class="about-bio-text">
+            <p class="about-statement">
+              Hi, I’m <strong>Kowshik Sravanam</strong>, a creative exploring AI and visual storytelling. I enjoy turning ideas into clear, expressive visuals through thoughtful design, typography, and movement.
+            </p>
+            <p class="about-subtext">
+              I’m always learning, experimenting, and looking for opportunities to create work that feels both meaningful and memorable.
+            </p>
+          </div>
+
+          <!-- Verified Background Information (No fabricated claims) -->
+          <div class="facts-grid">
+            <div><small>FOCUS</small><span>AI &amp; Visual Storytelling</span></div>
+            <div><small>EDUCATION</small><span>NIAT · B.Tech CSE (2026–30)</span></div>
+            <div><small>LOCATION</small><span>Rajahmundry, AP, India</span></div>
+            <div><small>AVAILABILITY</small><span>Open to Opportunities</span></div>
+          </div>
         </div>
-        <div class="facts-grid">
-          <div><small>FOCUS</small><span>AI & Generative AI</span></div>
-          <div><small>EDUCATION</small><span>NIAT · B.Tech CSE (2026-30)</span></div>
-          <div><small>LOCATION</small><span>Rajahmundry, AP, India</span></div>
-          <div><small>OPPORTUNITY</small><span>Open to Internships</span></div>
+
+        <!-- ── Right Column: Recognizable Glassmorphic Portrait ── -->
+        <div class="about-portrait-col reveal-right">
+          <div class="about-card-glass">
+            <div class="about-portrait-frame">
+              <img src="./public/images/kowshik-sravanam.jpg" alt="Kowshik Sravanam — Creative & AI Explorer" />
+            </div>
+            <div class="about-card-footer">
+              <div>
+                <span class="about-card-name">KOWSHIK SRAVANAM</span>
+                <span class="about-card-role">CREATIVE &amp; AI EXPLORER</span>
+              </div>
+              <span class="about-card-badge"><i></i> AVAILABLE</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -424,6 +703,30 @@
       const progress = document.querySelector(".reading-progress");
       const max = document.documentElement.scrollHeight - window.innerHeight;
       if (progress) progress.style.width = max > 0 ? ((window.scrollY / max) * 100) + "%" : "0%";
+    }, { passive: true });
+
+    // Scroll reveal observer (respects reduced motion)
+    const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach(el => observer.observe(el));
+    } else {
+      reveals.forEach(el => el.classList.add('visible'));
+    }
+
+    // Header glass background on scroll
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      if (header) {
+        if (window.scrollY > 40) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      }
     }, { passive: true });
 
     // Custom roaming cursor

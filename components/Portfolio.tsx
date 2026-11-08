@@ -72,17 +72,43 @@ export default function Portfolio() {
       </section>
 
       <section className="section about" id="about">
-        <motion.div className="section-index" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>01 / A LITTLE ABOUT ME</motion.div>
+        <motion.div className="section-index" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>01 / ABOUT ME</motion.div>
         <div className="about-layout">
+          {/* Left Column: Narrative & Details (Easy to edit) */}
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <h2 className="section-heading">CURIOUS BY<br />NATURE. <em>BUILT</em><br />TO EXPLORE.</h2>
-            <p className="about-statement">I'm a first-year B.Tech student at NIAT, passionate about <strong>Artificial Intelligence, Python programming, Web Development, and Generative AI.</strong> I’m building my technical foundation through hands-on learning, personal projects, hackathons, and ideathons to create projects that go beyond classroom learning.</p>
+            <h2 className="section-heading">TURNING IDEAS<br />INTO <em>EXPRESSIVE</em><br />EXPERIENCES.</h2>
+            
+            <div className="about-bio-text">
+              <p className="about-statement">
+                Hi, I’m <strong>Kowshik Sravanam</strong>, a creative exploring AI and visual storytelling. I enjoy turning ideas into clear, expressive visuals through thoughtful design, typography, and movement.
+              </p>
+              <p className="about-subtext">
+                I’m always learning, experimenting, and looking for opportunities to create work that feels both meaningful and memorable.
+              </p>
+            </div>
+
+            <div className="facts-grid">
+              <div><small>FOCUS</small><span>AI &amp; Visual Storytelling</span></div>
+              <div><small>EDUCATION</small><span>NIAT · B.Tech CSE (2026–30)</span></div>
+              <div><small>LOCATION</small><span>Rajahmundry, AP, India</span></div>
+              <div><small>AVAILABILITY</small><span>Open to Opportunities</span></div>
+            </div>
           </motion.div>
-          <motion.div className="facts-grid" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <div><small>FOCUS</small><span>AI & Generative AI</span></div>
-            <div><small>EDUCATION</small><span>NIAT · B.Tech CSE (2026-30)</span></div>
-            <div><small>LOCATION</small><span>Rajahmundry, AP, India</span></div>
-            <div><small>OPPORTUNITY</small><span>Open to Internships</span></div>
+
+          {/* Right Column: Recognizable Glassmorphic Portrait */}
+          <motion.div className="about-portrait-col" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <div className="about-card-glass">
+              <div className="about-portrait-frame" style={{ position: "relative", width: "100%", aspectRatio: "0.96", borderRadius: "10px", overflow: "hidden" }}>
+                <Image src="/images/kowshik-sravanam.jpg" alt="Kowshik Sravanam" fill sizes="(max-width: 800px) 90vw, 35vw" style={{ objectFit: "cover", objectPosition: "center 15%" }} />
+              </div>
+              <div className="about-card-footer">
+                <div>
+                  <span className="about-card-name">KOWSHIK SRAVANAM</span>
+                  <span className="about-card-role">CREATIVE &amp; AI EXPLORER</span>
+                </div>
+                <span className="about-card-badge"><i /> AVAILABLE</span>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
